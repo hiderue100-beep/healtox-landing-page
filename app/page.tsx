@@ -1,0 +1,877 @@
+'use client'
+
+import React, { useState, useRef, MouseEvent } from 'react'
+import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion'
+import { 
+  Instagram, 
+  ArrowRight, 
+  Sparkles, 
+  Clock, 
+  Thermometer, 
+  Leaf, 
+  Compass, 
+  ChevronRight,
+  RefreshCw,
+  Droplet,
+  Volume2
+} from 'lucide-react'
+
+// Define the Tea Blend structure
+interface TeaBlend {
+  id: string
+  name: string
+  koreanName: string
+  tagline: string
+  origin: string
+  benefits: string[]
+  temperature: string
+  steepingTime: string
+  profile: {
+    sweetness: number // 1 to 5
+    body: number
+    aroma: number
+    cleanliness: number
+  }
+  description: string
+  image: string
+  accentColor: string
+}
+
+// Rebranding Tea Blends Database
+const TEA_BLENDS: Record<string, TeaBlend> = {
+  tangerine: {
+    id: 'tangerine',
+    name: 'Jeju Citrus Tangerine Oolong',
+    koreanName: '제주 청귤 우롱',
+    tagline: '햇살 가득한 서귀포 온기를 담은 활력',
+    origin: '제주 서귀포 (Seogwipo, Jeju)',
+    benefits: ['생기 충전', '비타민 보충', '기분 전환'],
+    temperature: '85°C',
+    steepingTime: '3 min',
+    profile: { sweetness: 4, body: 3, aroma: 5, cleanliness: 4 },
+    description: '청량하고 산뜻한 제주 청귤의 상큼한 과즙과 반발효 우롱차의 우아한 난초 향이 조화를 이룹니다. 일상에서 비타민 같은 생기를 선사하는 블렌드입니다.',
+    image: '/images/healtox_lifestyle_tea.png',
+    accentColor: '#D97706' // Warm Amber
+  },
+  bamboo: {
+    id: 'bamboo',
+    name: 'Hadong Forest Bamboo & Dew',
+    koreanName: '하동 대숲 대나무 이슬차',
+    tagline: '아침 이슬 머금은 대잎의 맑고 고요한 평온',
+    origin: '경남 하동 (Hadong, Gyeongsangnam)',
+    benefits: ['마음 안정', '긴장 완화', '수분 공급'],
+    temperature: '80°C',
+    steepingTime: '2.5 min',
+    profile: { sweetness: 2, body: 2, aroma: 4, cleanliness: 5 },
+    description: '이른 아침 서늘한 기운을 감도는 하동 대나무 숲에서 영감을 받았습니다. 은은하고 깔끔한 맛과 대잎 특유의 달큰한 여운이 복잡한 생각을 비워내 줍니다.',
+    image: '/images/healtox_hero_tea.png',
+    accentColor: '#2C5E3B' // Deep Forest Green
+  },
+  matcha: {
+    id: 'matcha',
+    name: 'Boseong Fog Matcha Blend',
+    koreanName: '보성 안개 말차 블렌드',
+    tagline: '짙은 서리와 영양을 머금은 녹빛의 묵직한 몰입',
+    origin: '전남 보성 (Boseong, Jeollanam)',
+    benefits: ['몰입 강화', '항산화 리추얼', '스트레스 완화'],
+    temperature: '75°C',
+    steepingTime: '1.5 min',
+    profile: { sweetness: 3, body: 5, aroma: 3, cleanliness: 3 },
+    description: '보성의 안개 낀 차밭에서 가려 키운 유기농 말차에 현미의 구수함을 더해 묵직하면서도 크리미하게 감기는 바디감이 특징입니다. 깊은 몰입이 필요한 순간에 추천합니다.',
+    image: '/images/healtox_lifestyle_tea.png',
+    accentColor: '#4D6B3E' // Olive Matcha
+  },
+  chrysanthemum: {
+    id: 'chrysanthemum',
+    name: 'Jirisan Wild Chrysanthemum Bloom',
+    koreanName: '지리산 국화 감차 블렌드',
+    tagline: '지리산 자락에서 피어난 야생의 노란 단맛',
+    origin: '전북 남원 지리산 (Jirisan, Gyeongsang/Jeolla)',
+    benefits: ['체온 순환', '눈의 피로 회복', '디톡스'],
+    temperature: '90°C',
+    steepingTime: '4 min',
+    profile: { sweetness: 4, body: 2, aroma: 5, cleanliness: 4 },
+    description: '청정 지리산의 차가운 이슬을 맞고 자란 야생 감국과 부드러운 수국 잎을 블렌딩했습니다. 천연 감차 잎의 은은한 단맛과 한 모금마다 퍼지는 은은한 국화 향이 온몸의 순환을 돕습니다.',
+    image: '/images/healtox_hero_tea.png',
+    accentColor: '#B2822B' // Antique Gold
+  }
+}
+
+export default function HealtoxLanding() {
+  // Navigation active state
+  const [activeSection, setActiveSection] = useState('home')
+
+  // Interactive Quiz States
+  const [selectedStatus, setSelectedStatus] = useState<string>('rest')
+  const [selectedTaste, setSelectedTaste] = useState<string>('citrus')
+
+  // Mouse move parallax state for 3D Hero product canister
+  const heroCardRef = useRef<HTMLDivElement>(null)
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+
+  // Subtle 3D tilt effects mapping
+  const rotateX = useTransform(y, [-0.5, 0.5], [12, -12])
+  const rotateY = useTransform(x, [-0.5, 0.5], [-12, 12])
+
+  const springConfig = { damping: 25, stiffness: 100, mass: 0.6 }
+  const rotateXSpring = useSpring(rotateX, springConfig)
+  const rotateYSpring = useSpring(rotateY, springConfig)
+
+  const handleHeroMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (!heroCardRef.current) return
+    const rect = heroCardRef.current.getBoundingClientRect()
+    const width = rect.width
+    const height = rect.height
+    // Normalize coordinate to range [-0.5, 0.5]
+    const mouseX = (e.clientX - rect.left) / width - 0.5
+    const mouseY = (e.clientY - rect.top) / height - 0.5
+    x.set(mouseX)
+    y.set(mouseY)
+  }
+
+  const handleHeroMouseLeave = () => {
+    x.set(0)
+    y.set(0)
+  }
+
+  // Quiz Recommendation Logic
+  const getRecommendation = (status: string, taste: string): TeaBlend => {
+    if (status === 'rest' && taste === 'citrus') return TEA_BLENDS.tangerine
+    if (status === 'rest' && taste === 'nutty') return TEA_BLENDS.matcha
+    if (status === 'focus' && taste === 'woody') return TEA_BLENDS.bamboo
+    if (status === 'focus' && taste === 'nutty') return TEA_BLENDS.matcha
+    if (status === 'detox' && taste === 'citrus') return TEA_BLENDS.tangerine
+    if (status === 'glow' && taste === 'citrus') return TEA_BLENDS.tangerine
+    // Fallback based on taste
+    if (taste === 'woody') return TEA_BLENDS.bamboo
+    if (taste === 'nutty') return TEA_BLENDS.matcha
+    return TEA_BLENDS.chrysanthemum
+  }
+
+  const recommendedTea = getRecommendation(selectedStatus, selectedTaste)
+
+  // Status mapping UI
+  const statusOptions = [
+    { id: 'rest', label: '피로와 일상의 긴장', desc: 'Relaxation & Hydration' },
+    { id: 'focus', label: '스트레스와 몰입 필요', desc: 'Focus & Concentration' },
+    { id: 'detox', label: '몸이 붓고 무거울 때', desc: 'Circulation & Lightness' },
+    { id: 'glow', label: '생기 있고 매끈한 안색', desc: 'Inner-Beauty & Glow' }
+  ]
+
+  // Taste mapping UI
+  const tasteOptions = [
+    { id: 'citrus', label: '상큼하고 산뜻한 과일향', desc: 'Fruity & Refreshing' },
+    { id: 'woody', label: '부드럽고 차분한 대나무향', desc: 'Earthy & Smooth' },
+    { id: 'nutty', label: '따뜻하고 구수한 곡물향', desc: 'Toasty & Nutty' }
+  ]
+
+  // Instagram Mock Data
+  const instagramFeed = [
+    { 
+      id: 'ig1', 
+      image: '/images/healtox_lifestyle_tea.png', 
+      tag: '#morningroutine', 
+      likes: '1.2k',
+      caption: '아침의 번잡함을 가라앉히는 하동 대나무 맑은 온기. 나를 위한 10분의 명상.'
+    },
+    { 
+      id: 'ig2', 
+      image: '/images/healtox_hero_tea.png', 
+      tag: '#healtoxritual', 
+      likes: '954',
+      caption: '정갈한 디테일에 초점을 맞춘 힐톡스의 캔 패키지. 공간의 품격을 더합니다.'
+    },
+    { 
+      id: 'ig3', 
+      image: '/images/healtox_lifestyle_tea.png', 
+      tag: '#innerpeace', 
+      likes: '2.1k',
+      caption: '제주 오롱의 은은한 향이 서가에 퍼지는 주말 오후. 당신의 취향은 무엇인가요?'
+    },
+    { 
+      id: 'ig4', 
+      image: '/images/healtox_hero_tea.png', 
+      tag: '#traditionalrebrand', 
+      likes: '1.8k',
+      caption: '가장 한국적인 자연을 정제하여 현대적 라이프스타일로 재탄생시켰습니다.'
+    }
+  ]
+
+  return (
+    <div className="min-h-screen bg-brand-bg text-brand-primary relative">
+      
+      {/* 1. Header / Navigation */}
+      <header className="fixed top-0 left-0 w-full z-50 transition-all duration-300 backdrop-blur-md bg-brand-bg/85 border-b border-brand-light">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <a href="#" className="font-serif text-2xl tracking-widest font-semibold text-brand-primary">
+            HEALTOX
+          </a>
+          
+          <nav className="hidden md:flex space-x-10 text-sm font-medium tracking-wider text-brand-olive">
+            <a href="#about" className="hover:text-brand-primary transition-colors">BRAND STORY</a>
+            <a href="#finder" className="hover:text-brand-primary transition-colors">HYDRATION FINDER</a>
+            <a href="#blends" className="hover:text-brand-primary transition-colors">TEA BLENDS</a>
+            <a href="#instagram" className="hover:text-brand-primary transition-colors">INSTAGRAM</a>
+          </nav>
+          
+          <div className="flex items-center space-x-4">
+            <span className="hidden sm:inline-block text-xs font-semibold px-3 py-1.5 border border-brand-primary rounded-full hover:bg-brand-primary hover:text-brand-bg transition-colors duration-300">
+              <a href="#finder">START RITUAL</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      {/* 2. Hero Section */}
+      <section id="home" className="relative pt-32 pb-24 md:py-40 overflow-hidden flex items-center justify-center">
+        {/* Abstract organic background elements */}
+        <div className="absolute top-1/4 left-10 w-96 h-96 bg-brand-light/30 rounded-full blur-3xl -z-10 pointer-events-none" />
+        <div className="absolute bottom-1/4 right-10 w-[500px] h-[500px] bg-brand-sage/10 rounded-full blur-3xl -z-10 pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+          
+          {/* Slogan and Text Block */}
+          <div className="lg:col-span-7 flex flex-col justify-center space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-4"
+            >
+              <div className="flex items-center space-x-2 text-brand-sage">
+                <Leaf className="w-4 h-4" />
+                <span className="text-xs uppercase font-medium tracking-widest">Premium Rebranding Korean Tea</span>
+              </div>
+              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.15] text-brand-primary">
+                영혼을 채우는 <br />
+                <span className="italic font-light">하루의 쉼표</span>, <br />
+                감각의 리추얼
+              </h1>
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="text-brand-olive text-base sm:text-lg leading-relaxed max-w-xl"
+            >
+              힐톡스(Healtox)는 보성, 하동, 제주 등 가장 한국적이고 청정한 자연에서 기른 차 잎을 현대적 라이프스타일로 재구성합니다. 오늘의 상태와 입맛에 맞춰 차오르는 수분의 온기를 경험해 보세요.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="flex items-center space-x-6"
+            >
+              <a
+                href="#finder"
+                className="inline-flex items-center bg-brand-primary text-brand-bg text-sm font-semibold tracking-wider px-8 py-4 rounded-lg shadow-sm hover:bg-brand-olive hover:-translate-y-0.5 transition-all duration-300 group"
+              >
+                나의 맞춤 차 찾기
+                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </a>
+              <a
+                href="#about"
+                className="text-sm font-semibold text-brand-primary hover:text-brand-sage transition-colors duration-300"
+              >
+                브랜드 스토리 보기
+              </a>
+            </motion.div>
+          </div>
+
+          {/* Interactive Floating / 3D Parallax Tea Package */}
+          <div className="lg:col-span-5 flex justify-center items-center">
+            {/* Infinite Floating Anim Wrapper */}
+            <motion.div
+              animate={{
+                y: [-12, 12, -12]
+              }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="relative w-full max-w-[360px]"
+            >
+              
+              {/* Interactive Mouse Tracking Parallax Div */}
+              <div
+                ref={heroCardRef}
+                onMouseMove={handleHeroMouseMove}
+                onMouseLeave={handleHeroMouseLeave}
+                className="w-full relative cursor-grab active:cursor-grabbing"
+                style={{ perspective: 1200 }}
+              >
+                <motion.div
+                  style={{
+                    rotateX: rotateXSpring,
+                    rotateY: rotateYSpring,
+                    transformStyle: 'preserve-3d'
+                  }}
+                  className="w-full aspect-[4/5] bg-white/70 backdrop-blur-md rounded-2xl p-6 shadow-[0_20px_50px_rgba(44,62,43,0.06)] border border-white/50 flex flex-col justify-between overflow-hidden relative group"
+                >
+                  {/* Subtle light gleam inside card */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-white/40 pointer-events-none rounded-2xl" />
+
+                  {/* Brand signature details */}
+                  <div className="flex justify-between items-start" style={{ transform: 'translateZ(30px)' }}>
+                    <div className="text-[10px] uppercase font-bold tracking-widest text-brand-sage leading-none">
+                      NO. 02 <br /> HARVEST 2026
+                    </div>
+                    <div className="text-xs font-semibold px-2.5 py-1 bg-brand-light text-brand-primary rounded-full">
+                      Hadong Forest
+                    </div>
+                  </div>
+
+                  {/* High fidelity image asset center */}
+                  <div className="my-auto flex justify-center items-center relative" style={{ transform: 'translateZ(60px)' }}>
+                    <div className="absolute w-44 h-44 bg-brand-sage/10 rounded-full blur-2xl -z-10" />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img 
+                      src="/images/healtox_hero_tea.png" 
+                      alt="Healtox Premium Tea Packaging"
+                      className="max-h-64 object-contain drop-shadow-[0_25px_30px_rgba(0,0,0,0.12)] group-hover:scale-105 transition-transform duration-500" 
+                    />
+                  </div>
+
+                  {/* Lower metadata */}
+                  <div className="space-y-2" style={{ transform: 'translateZ(40px)' }}>
+                    <div className="text-xs text-brand-sage tracking-wider font-semibold">
+                      BAMBOO & DEW TEA
+                    </div>
+                    <div className="flex justify-between items-end">
+                      <span className="font-serif text-xl font-medium tracking-wide">하동 대나무 이슬차</span>
+                      <span className="text-xs text-brand-olive font-semibold">80g / 2.8 oz</span>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Auxiliary Floating Organic Leaves (Antigravity ambience) */}
+              <motion.div
+                animate={{ y: [-15, 10, -15], rotate: [0, 20, 0] }}
+                transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -top-6 -left-6 w-12 h-12 pointer-events-none drop-shadow-md"
+              >
+                <svg viewBox="0 0 100 100" fill="none" className="w-full h-full text-brand-sage opacity-75">
+                  <path d="M10 80 C40 80, 80 50, 90 20 C60 20, 20 50, 10 80 Z" fill="currentColor" />
+                  <path d="M10 80 Q50 50 90 20" stroke="#2C3E2B" strokeWidth="2" />
+                </svg>
+              </motion.div>
+
+              <motion.div
+                animate={{ y: [10, -15, 10], rotate: [15, -10, 15] }}
+                transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute bottom-10 -right-8 w-14 h-14 pointer-events-none drop-shadow-md"
+              >
+                <svg viewBox="0 0 100 100" fill="none" className="w-full h-full text-brand-olive opacity-60">
+                  <path d="M20 90 C50 80, 80 40, 85 10 C55 15, 25 50, 20 90 Z" fill="currentColor" />
+                  <path d="M20 90 Q52.5 50 85 10" stroke="#F9F8F6" strokeWidth="2" />
+                </svg>
+              </motion.div>
+
+              <motion.div
+                animate={{ y: [-5, 8, -5], rotate: [-20, 10, -20] }}
+                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -bottom-4 left-1/4 w-8 h-8 pointer-events-none drop-shadow-sm"
+              >
+                <svg viewBox="0 0 100 100" fill="none" className="w-full h-full text-brand-sage/40">
+                  <path d="M10 90 C35 70, 75 40, 90 10 C60 15, 30 50, 10 90 Z" fill="currentColor" />
+                </svg>
+              </motion.div>
+
+            </motion.div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 3. Brand Philosophy / About Section */}
+      <section id="about" className="py-24 bg-[#1B2A1C] text-[#F2F5F1] border-y border-[#2A3C2B] relative">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            
+            {/* Visual Column */}
+            <div className="lg:col-span-5 relative">
+              <div className="absolute inset-0 bg-white/5 rounded-2xl transform translate-x-4 translate-y-4" />
+              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-md">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
+                  src="/images/healtox_lifestyle_tea.png" 
+                  alt="Healtox Tea ceremony lifestyle" 
+                  className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+            </div>
+
+            {/* Description Column */}
+            <div className="lg:col-span-7 space-y-8">
+              <div className="space-y-4">
+                <span className="text-xs uppercase font-semibold tracking-widest text-brand-sage opacity-90">Our Philosophy</span>
+                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium leading-tight">
+                  가장 정제된 공간에서 자란 차잎,<br />
+                  <span className="italic font-light opacity-90">가장 사적인 온도의 온기</span>
+                </h2>
+              </div>
+
+              <div className="space-y-6 text-[#D0DCD0] text-base sm:text-lg leading-relaxed">
+                <p>
+                  지리산의 맑은 바람을 쐬고 자란 가을 들국화, 새벽안개가 내린 보성의 햇녹차, 그리고 뜨거운 제주 서귀포의 따사로운 햇볕을 머금은 감귤까지. 힐톡스는 타협하지 않는 원산지 원칙으로 지역 농가와 긴밀히 협력합니다.
+                </p>
+                <p>
+                  인스턴트 음료와 강한 카페인에 지친 일상 속에서, 정갈하게 우려내는 차 한 잔은 우리 몸의 적절한 수분 공급과 깊은 평온함을 깨워 줍니다. 우리는 가벼운 갈증 해소를 넘어 정신을 조율하는 새로운 리추얼을 만들어 나갑니다.
+                </p>
+              </div>
+
+              {/* Pillars list */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4 border-t border-white/10">
+                <div className="space-y-2">
+                  <h3 className="font-serif text-lg font-semibold text-white">01. Heritage</h3>
+                  <p className="text-xs text-[#B4C4B2] leading-relaxed">수천 년간 이어온 우리 땅의 농업 유산과 우수한 다원의 전통 기법 유지</p>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-serif text-lg font-semibold text-white">02. Tailored</h3>
+                  <p className="text-xs text-[#B4C4B2] leading-relaxed">개인의 체질과 성향, 시간대에 맞춤형 수분 공급 솔루션(Hydration) 설계</p>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-serif text-lg font-semibold text-white">03. Clean Green</h3>
+                  <p className="text-xs text-[#B4C4B2] leading-relaxed">화학 물질을 일절 배제한 유기농 자연 잎 그대로의 은은한 가치 추구</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Hydration Finder (Personalized Recommendation Section) */}
+      <section id="finder" className="py-24 relative overflow-hidden bg-brand-bg">
+        <div className="max-w-7xl mx-auto px-6">
+          
+          {/* Section title */}
+          <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
+            <span className="text-xs uppercase font-semibold tracking-widest text-brand-sage">Private Consultation</span>
+            <h2 className="font-serif text-3xl sm:text-4xl font-medium">나에게 맞는 차 리추얼 진단</h2>
+            <p className="text-brand-olive text-sm sm:text-base leading-relaxed">
+              지금 당신에게 어울리는 가장 균형 잡힌 전통 차 조합을 찾아보세요. 오늘의 스트레스 지수, 몸 상태, 원하는 입맛을 선택하면 최적의 블렌드를 매칭해 드립니다.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            {/* Quiz Selectors Container (5 columns) */}
+            <div className="lg:col-span-5 space-y-8">
+              
+              {/* Step 1: Status */}
+              <div className="space-y-4">
+                <div className="flex items-center space-x-2 text-brand-primary font-semibold text-sm">
+                  <span className="w-5 h-5 rounded-full bg-brand-light flex items-center justify-center text-xs">1</span>
+                  <span>오늘 하루 내 몸과 마음의 상태는?</span>
+                </div>
+                
+                <div className="flex flex-col space-y-3">
+                  {statusOptions.map((opt) => (
+                    <button
+                      key={opt.id}
+                      onClick={() => setSelectedStatus(opt.id)}
+                      className={`w-full text-left p-4 rounded-xl border transition-all duration-300 flex justify-between items-center ${
+                        selectedStatus === opt.id
+                          ? 'border-brand-primary bg-white shadow-sm font-medium'
+                          : 'border-brand-light bg-transparent hover:border-brand-sage/60'
+                      }`}
+                    >
+                      <div>
+                        <div className="text-sm text-brand-primary font-semibold">{opt.label}</div>
+                        <div className="text-xs text-brand-sage mt-1">{opt.desc}</div>
+                      </div>
+                      <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                        selectedStatus === opt.id ? 'border-brand-primary bg-brand-primary' : 'border-brand-accent'
+                      }`}>
+                        {selectedStatus === opt.id && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Step 2: Taste */}
+              <div className="space-y-4">
+                <div className="flex items-center space-x-2 text-brand-primary font-semibold text-sm">
+                  <span className="w-5 h-5 rounded-full bg-brand-light flex items-center justify-center text-xs">2</span>
+                  <span>가장 끌리는 맛과 아로마 프로필은?</span>
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {tasteOptions.map((opt) => (
+                    <button
+                      key={opt.id}
+                      onClick={() => setSelectedTaste(opt.id)}
+                      className={`text-center p-4 rounded-xl border transition-all duration-300 ${
+                        selectedTaste === opt.id
+                          ? 'border-brand-primary bg-white shadow-sm font-medium'
+                          : 'border-brand-light bg-transparent hover:border-brand-sage/60'
+                      }`}
+                    >
+                      <div className="text-sm text-brand-primary font-semibold">{opt.label.split(' ')[0]}</div>
+                      <div className="text-[10px] text-brand-sage mt-1 leading-tight">{opt.desc}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+
+            {/* Recommendation Result Card (7 columns) */}
+            <div className="lg:col-span-7">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={recommendedTea.id}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="bg-white rounded-2xl p-6 sm:p-10 shadow-[0_20px_50px_rgba(44,62,43,0.04)] border border-brand-light flex flex-col md:flex-row gap-8 items-center relative overflow-hidden"
+                >
+                  {/* Subtle color wash background */}
+                  <div 
+                    className="absolute -right-24 -bottom-24 w-80 h-80 rounded-full blur-[100px] opacity-15 pointer-events-none"
+                    style={{ backgroundColor: recommendedTea.accentColor }}
+                  />
+
+                  {/* Left Column: Recommended Product Image */}
+                  <div className="w-full md:w-2/5 flex flex-col justify-center items-center relative">
+                    <div 
+                      className="absolute w-36 h-36 rounded-full blur-2xl opacity-10 pointer-events-none"
+                      style={{ backgroundColor: recommendedTea.accentColor }}
+                    />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={recommendedTea.image}
+                      alt={recommendedTea.koreanName}
+                      className="max-h-56 object-contain drop-shadow-[0_15px_20px_rgba(0,0,0,0.08)] transform hover:scale-105 transition-transform duration-500"
+                    />
+                    
+                    {/* Brewing Guide Badge */}
+                    <div className="mt-6 flex gap-4 text-xs font-semibold text-brand-olive bg-brand-bg px-4 py-2.5 rounded-full border border-brand-light shadow-sm">
+                      <div className="flex items-center space-x-1">
+                        <Thermometer className="w-3.5 h-3.5 text-brand-sage" />
+                        <span>{recommendedTea.temperature}</span>
+                      </div>
+                      <div className="h-3 w-px bg-brand-light" />
+                      <div className="flex items-center space-x-1">
+                        <Clock className="w-3.5 h-3.5 text-brand-sage" />
+                        <span>{recommendedTea.steepingTime}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Column: Descriptions & Sensory Profiles */}
+                  <div className="w-full md:w-3/5 space-y-6">
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <Sparkles className="w-4 h-4" style={{ color: recommendedTea.accentColor }} />
+                        <span className="text-xs tracking-wider uppercase font-bold" style={{ color: recommendedTea.accentColor }}>Recommended Tea</span>
+                      </div>
+                      <div className="flex justify-between items-baseline">
+                        <h3 className="font-serif text-2xl font-bold">{recommendedTea.koreanName}</h3>
+                        <span className="text-xs text-brand-sage font-medium">{recommendedTea.origin}</span>
+                      </div>
+                      <p className="text-[11px] uppercase tracking-wider text-brand-sage font-semibold font-mono leading-none">
+                        {recommendedTea.name}
+                      </p>
+                    </div>
+
+                    <p className="text-brand-olive text-sm sm:text-base leading-relaxed">
+                      {recommendedTea.description}
+                    </p>
+
+                    {/* Benefit Tags */}
+                    <div className="flex flex-wrap gap-2">
+                      {recommendedTea.benefits.map((benefit, i) => (
+                        <span 
+                          key={i} 
+                          className="text-xs px-3 py-1 bg-brand-bg text-brand-primary border border-brand-light rounded-md font-semibold"
+                        >
+                          # {benefit}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Flavor Radar Profile */}
+                    <div className="space-y-2.5 pt-4 border-t border-brand-light">
+                      <h4 className="text-xs font-semibold text-brand-primary tracking-wider uppercase">아로마 & 테이스트 프로필</h4>
+                      
+                      <div className="grid grid-cols-2 gap-x-6 gap-y-2">
+                        {Object.entries(recommendedTea.profile).map(([key, value]) => {
+                          const labelMap: Record<string, string> = {
+                            sweetness: '단맛 (Sweetness)',
+                            body: '바디감 (Body)',
+                            aroma: '향미 (Aroma)',
+                            cleanliness: '깔끔함 (Clean)'
+                          }
+                          return (
+                            <div key={key} className="space-y-1">
+                              <div className="flex justify-between text-[11px] font-semibold text-brand-olive">
+                                <span>{labelMap[key]}</span>
+                                <span>{value} / 5</span>
+                              </div>
+                              <div className="w-full h-1.5 bg-brand-light rounded-full overflow-hidden">
+                                <motion.div 
+                                  initial={{ width: 0 }}
+                                  animate={{ width: `${(value / 5) * 100}%` }}
+                                  transition={{ duration: 0.8, ease: 'easeOut' }}
+                                  className="h-full rounded-full"
+                                  style={{ backgroundColor: recommendedTea.accentColor }}
+                                />
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Action button */}
+                    <button 
+                      className="w-full flex items-center justify-between px-6 py-3.5 text-xs font-bold tracking-widest text-white rounded-lg hover:brightness-105 active:scale-[0.98] transition-all duration-300 mt-2"
+                      style={{ backgroundColor: recommendedTea.accentColor }}
+                    >
+                      <span>리추얼 시작하기 (ADD TO RITUAL)</span>
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 5. Custom Showcase: Premium Tea Blends List */}
+      <section id="blends" className="py-24 bg-white border-t border-brand-light">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
+            <div className="space-y-4">
+              <span className="text-xs uppercase font-semibold tracking-widest text-brand-sage">The Collection</span>
+              <h2 className="font-serif text-3xl sm:text-4xl font-medium">Healtox 고유의 컬렉션</h2>
+            </div>
+            <p className="text-brand-olive text-sm sm:text-base max-w-md mt-4 md:mt-0">
+              각 다원에서 우수한 잎만을 선별해 특색 있는 수분 밸런스와 영양을 극대화한 네 가지 아키텍처 블렌드를 제공합니다.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {Object.values(TEA_BLENDS).map((tea) => (
+              <div 
+                key={tea.id}
+                className="group border border-brand-light rounded-xl p-5 hover:shadow-[0_15px_30px_rgba(44,62,43,0.04)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div className="space-y-4">
+                  <div className="aspect-[4/3] rounded-lg overflow-hidden bg-brand-bg flex items-center justify-center p-4 relative">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img 
+                      src={tea.image} 
+                      alt={tea.koreanName}
+                      className="max-h-36 object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-500" 
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <span className="text-[10px] uppercase font-bold tracking-widest text-brand-sage">
+                      {tea.origin.split(' ')[0]}
+                    </span>
+                    <h3 className="font-serif text-lg font-bold group-hover:text-brand-sage transition-colors">
+                      {tea.koreanName}
+                    </h3>
+                    <p className="text-xs text-brand-olive leading-relaxed min-h-[36px]">
+                      {tea.tagline}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-brand-light flex justify-between items-center">
+                  <span className="text-xs font-semibold text-brand-primary">{tea.temperature} / {tea.steepingTime}</span>
+                  <button className="text-xs font-bold tracking-wider hover:text-brand-sage flex items-center space-x-1">
+                    <span>자세히 보기</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Instagram Feed Section */}
+      <section id="instagram" className="py-24 bg-brand-bg border-t border-brand-light relative">
+        <div className="max-w-7xl mx-auto px-6">
+          
+          <div className="text-center max-w-xl mx-auto mb-16 space-y-4">
+            <div className="inline-flex items-center space-x-2 text-brand-sage">
+              <Instagram className="w-4 h-4" />
+              <span className="text-xs uppercase font-medium tracking-widest">Instagram @healtox.ritual</span>
+            </div>
+            <h2 className="font-serif text-3xl font-medium">일상 속 차가 닿는 정경</h2>
+            <p className="text-brand-olive text-sm leading-relaxed">
+              #힐톡스리추얼 태그를 통해 인상적인 쉼표의 풍경들을 모았습니다. 매일 아침의 맑은 습관을 당신의 공간에도 심어 보세요.
+            </p>
+          </div>
+
+          {/* 1x4 Minimal Grid Layout */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {instagramFeed.map((item) => (
+              <div 
+                key={item.id}
+                className="group relative aspect-square rounded-xl overflow-hidden shadow-sm border border-brand-light cursor-pointer"
+              >
+                {/* Image background */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
+                  src={item.image} 
+                  alt="Healtox Instagram Post" 
+                  className="w-full h-full object-cover transform scale-100 group-hover:scale-105 duration-500 ease-out" 
+                />
+
+                {/* Glassmorphism Dark Green Overlay (Fade-in effect on hover) */}
+                <div className="absolute inset-0 bg-brand-primary/80 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-6 z-10 text-white">
+                  
+                  {/* Top content: Likes and IG Icon */}
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs tracking-wider bg-white/20 px-3 py-1 rounded-full backdrop-blur-sm text-brand-bg font-semibold">
+                      ♥ {item.likes}
+                    </span>
+                    <Instagram className="w-5 h-5 text-brand-light" />
+                  </div>
+
+                  {/* Middle: Caption */}
+                  <p className="text-xs leading-relaxed text-brand-light font-medium line-clamp-3">
+                    {item.caption}
+                  </p>
+
+                  {/* Bottom: Hashtag tag */}
+                  <div className="text-xs font-semibold text-brand-sage flex items-center space-x-1">
+                    <span>{item.tag}</span>
+                  </div>
+
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* 
+            ========================================================================
+            [DEVELOPMENT BOILERPLATE: INSTAGRAM BASIC DISPLAY API INTEGRATION]
+            ========================================================================
+            Below is a structural instruction on how to fetch dynamic instagram feed images:
+
+            1. Register a Meta Developer App:
+               - Go to Meta for Developers (developers.facebook.com)
+               - Create an App with the 'Consumer' or 'None' type, then set up the 'Instagram Basic Display' product.
+               - Configure OAuth Redirect URLs & Deauthorize callback URLs.
+            
+            2. Get User Access Token (Step-by-step auth flow):
+               - Redirect the user to Instagram Auth URL to get authorization code:
+                 https://api.instagram.com/oauth/authorize?client_id={CLIENT_ID}&redirect_uri={REDIRECT_URI}&scope=user_profile,user_media&response_type=code
+               - Swap code for a short-lived access token via POST request to api.instagram.com/oauth/access_token
+               - Exchange short-lived token for a long-lived access token (valid 60 days):
+                 GET https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret={CLIENT_SECRET}&access_token={SHORT_LIVED_TOKEN}
+            
+            3. Dynamic Access Token Refresh (Must run periodically, e.g., on serverless function / edge middleware):
+               - Keep checking token age or schedule an automatic cron job (using node-cron / Vercel Cron) to refresh token every 30-45 days.
+               - Fetch refresh endpoint:
+                 GET https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token={LONG_LIVED_ACCESS_TOKEN}
+               - Securely store the returned refreshed token in environmental variables, database, or key vaults.
+            
+            4. Fetch API Sample Implementation (Next.js Server Component or Route Handler):
+            
+               ```typescript
+               // File: app/api/instagram/route.ts
+               import { NextResponse } from 'next/server';
+
+               export async function GET() {
+                 const token = process.env.INSTAGRAM_ACCESS_TOKEN;
+                 if (!token) {
+                   return NextResponse.json({ error: 'Token missing' }, { status: 500 });
+                 }
+
+                 try {
+                   // Fetch target details: id, caption, media_type, media_url, permalink, timestamp
+                   const res = await fetch(
+                     `https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url,timestamp&limit=4&access_token=${token}`,
+                     { next: { revalidate: 3600 } } // Cache and revalidate feed data every hour
+                   );
+                   
+                   if (!res.ok) {
+                     throw new Error('Failed to fetch Instagram API');
+                   }
+
+                   const data = await res.json();
+                   return NextResponse.json(data.data || []);
+                 } catch (err: any) {
+                   return NextResponse.json({ error: err.message }, { status: 500 });
+                 }
+               }
+               ```
+          */}
+          <div className="mt-10 text-center">
+            <p className="text-[11px] text-brand-sage uppercase font-mono tracking-widest">
+              * Instagram Basic Display API integration comments configured inside app/page.tsx
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 7. Footer Section */}
+      <footer className="bg-brand-primary text-brand-bg py-16 border-t border-brand-olive/20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pb-12 border-b border-brand-olive/30">
+            
+            {/* Logo and short bio */}
+            <div className="space-y-4 md:col-span-2">
+              <span className="font-serif text-3xl tracking-widest font-semibold text-white">HEALTOX</span>
+              <p className="text-xs text-brand-light/70 max-w-sm leading-relaxed">
+                힐톡스는 대한민국 청정 자연의 산물인 전통 차 다원들과 협력하여, 오늘의 온도를 맞춘 현대적 리추얼 차 문화를 제안하는 프리미엄 웰니스 브랜드입니다.
+              </p>
+            </div>
+
+            {/* Links columns */}
+            <div className="space-y-3">
+              <h4 className="text-xs uppercase font-bold tracking-widest text-brand-sage">Navigate</h4>
+              <ul className="text-xs space-y-2 text-brand-light/80">
+                <li><a href="#about" className="hover:text-white transition-colors">Brand Story</a></li>
+                <li><a href="#finder" className="hover:text-white transition-colors">Hydration Finder</a></li>
+                <li><a href="#blends" className="hover:text-white transition-colors">Tea Blends Collection</a></li>
+                <li><a href="#instagram" className="hover:text-white transition-colors">Social Updates</a></li>
+              </ul>
+            </div>
+
+            <div className="space-y-3">
+              <h4 className="text-xs uppercase font-bold tracking-widest text-brand-sage">Contact & Legal</h4>
+              <ul className="text-xs space-y-2 text-brand-light/80">
+                <li>Email: contact@healtox.com</li>
+                <li>Tel: +82 (0)2 1234 5678</li>
+                <li>CS: 10:00 - 17:00 (Weekend Off)</li>
+                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
+              </ul>
+            </div>
+
+          </div>
+
+          <div className="flex flex-col sm:flex-row justify-between items-center pt-8 text-[10px] text-brand-light/50 tracking-wider">
+            <span>© {new Date().getFullYear()} HEALTOX Co., Ltd. All Rights Reserved.</span>
+            <div className="flex space-x-6 mt-4 sm:mt-0">
+              <a href="#" className="hover:text-white transition-colors">TERMS OF USE</a>
+              <a href="#" className="hover:text-white transition-colors">PRIVACY POLICY</a>
+              <a href="#" className="hover:text-white transition-colors">GLOBAL PARTNERSHIP</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  )
+}
