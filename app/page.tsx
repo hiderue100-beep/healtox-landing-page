@@ -197,7 +197,6 @@ export default function HealtoxLanding() {
       caption: '가장 한국적인 자연을 정제하여 현대적 라이프스타일로 재탄생시켰습니다.'
     }
   ]
-
   return (
     <div className="min-h-screen bg-brand-bg text-brand-primary relative">
       
@@ -223,30 +222,50 @@ export default function HealtoxLanding() {
         </div>
       </header>
 
-      {/* 2. Hero Section */}
-      <section id="home" className="relative pt-32 pb-24 md:py-40 overflow-hidden flex items-center justify-center">
-        {/* Abstract organic background elements */}
-        <div className="absolute top-1/4 left-10 w-96 h-96 bg-brand-light/30 rounded-full blur-3xl -z-10 pointer-events-none" />
-        <div className="absolute bottom-1/4 right-10 w-[500px] h-[500px] bg-brand-sage/10 rounded-full blur-3xl -z-10 pointer-events-none" />
+      {/* 2. Hero Section — Full Screen Immersive Image */}
+      <section id="home" className="relative w-full overflow-hidden" style={{ height: '100vh', minHeight: '600px' }}>
 
-        <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-          
-          {/* Slogan and Text Block */}
-          <div className="lg:col-span-7 flex flex-col justify-center space-y-8">
+        {/* Full-bleed background image */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <motion.img
+          initial={{ scale: 1.05 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 8, ease: "easeOut" }}
+          src="/images/healtox_hero_fullscreen.png"
+          alt="Healtox — 청정 자연의 감각적 리추얼"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ objectPosition: 'right center' }}
+        />
+
+        {/* Layered gradient overlays for legible text */}
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(27,42,28,0.55) 0%, rgba(27,42,28,0.20) 50%, rgba(27,42,28,0.0) 100%)' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(27,42,28,0.40) 0%, transparent 60%)' }} />
+
+        {/* Content overlay */}
+        <div className="relative h-full max-w-7xl mx-auto px-8 md:px-16 flex flex-col justify-between py-10">
+
+          {/* Top: Date tag */}
+          <div className="pt-24">
+            <span className="text-[11px] tracking-[0.15em] text-white/70 font-medium uppercase">2026 Summer Collection</span>
+          </div>
+
+          {/* Bottom-left: Brand slogan + CTA */}
+          <div className="pb-16 max-w-lg space-y-6">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               className="space-y-4"
             >
-              <div className="flex items-center space-x-2 text-brand-sage">
-                <Leaf className="w-4 h-4" />
-                <span className="text-xs uppercase font-medium tracking-widest">Premium Rebranding Korean Tea</span>
+              <div className="flex items-center space-x-2 text-white/60">
+                <Leaf className="w-3.5 h-3.5" />
+                <span className="text-[11px] tracking-[0.18em] uppercase font-medium">Premium Rebranding Korean Tea</span>
               </div>
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.15] text-brand-primary">
-                영혼을 채우는 <br />
-                <span className="italic font-light">하루의 쉼표</span>, <br />
-                감각의 리추얼
+
+              <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] leading-[1.18] text-white font-medium tracking-tight">
+                영혼을 채우는<br />
+                하루의 쉼표,<br />
+                <span className="text-white/80">감각의 리추얼</span>
               </h1>
             </motion.div>
 
@@ -254,138 +273,35 @@ export default function HealtoxLanding() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="text-brand-olive text-base sm:text-lg leading-relaxed max-w-xl"
+              className="text-white/65 text-sm leading-relaxed max-w-sm"
             >
-              힐톡스(Healtox)는 보성, 하동, 제주 등 가장 한국적이고 청정한 자연에서 기른 차 잎을 현대적 라이프스타일로 재구성합니다. 오늘의 상태와 입맛에 맞춰 차오르는 수분의 온기를 경험해 보세요.
+              보성·하동·제주의 청정 자연에서 기른 전통 차 잎을 현대적 감각으로 재구성했습니다.
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="flex items-center space-x-6"
+              className="flex items-center gap-4 pt-1"
             >
-              <a
-                href="#finder"
-                className="inline-flex items-center bg-brand-primary text-brand-bg text-sm font-semibold tracking-wider px-8 py-4 rounded-lg shadow-sm hover:bg-brand-olive hover:-translate-y-0.5 transition-all duration-300 group"
-              >
+              <a href="#finder" className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/30 text-white text-xs font-semibold tracking-widest px-6 py-3.5 rounded-lg hover:bg-white/25 transition-all duration-300 group">
                 나의 맞춤 차 찾기
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </a>
-              <a
-                href="#about"
-                className="text-sm font-semibold text-brand-primary hover:text-brand-sage transition-colors duration-300"
-              >
-                브랜드 스토리 보기
+              <a href="#about" className="text-white/60 hover:text-white text-xs tracking-wider font-medium transition-colors duration-300">
+                브랜드 스토리 &rarr;
               </a>
-            </motion.div>
-          </div>
-
-          {/* Interactive Floating / 3D Parallax Tea Package */}
-          <div className="lg:col-span-5 flex justify-center items-center">
-            {/* Infinite Floating Anim Wrapper */}
-            <motion.div
-              animate={{
-                y: [-12, 12, -12]
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className="relative w-full max-w-[360px]"
-            >
-              
-              {/* Interactive Mouse Tracking Parallax Div */}
-              <div
-                ref={heroCardRef}
-                onMouseMove={handleHeroMouseMove}
-                onMouseLeave={handleHeroMouseLeave}
-                className="w-full relative cursor-grab active:cursor-grabbing"
-                style={{ perspective: 1200 }}
-              >
-                <motion.div
-                  style={{
-                    rotateX: rotateXSpring,
-                    rotateY: rotateYSpring,
-                    transformStyle: 'preserve-3d'
-                  }}
-                  className="w-full aspect-[4/5] bg-white/70 backdrop-blur-md rounded-2xl p-6 shadow-[0_20px_50px_rgba(44,62,43,0.06)] border border-white/50 flex flex-col justify-between overflow-hidden relative group"
-                >
-                  {/* Subtle light gleam inside card */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-white/40 pointer-events-none rounded-2xl" />
-
-                  {/* Brand signature details */}
-                  <div className="flex justify-between items-start" style={{ transform: 'translateZ(30px)' }}>
-                    <div className="text-[10px] uppercase font-bold tracking-widest text-brand-sage leading-none">
-                      NO. 02 <br /> HARVEST 2026
-                    </div>
-                    <div className="text-xs font-semibold px-2.5 py-1 bg-brand-light text-brand-primary rounded-full">
-                      Hadong Forest
-                    </div>
-                  </div>
-
-                  {/* High fidelity image asset center */}
-                  <div className="my-auto flex justify-center items-center relative" style={{ transform: 'translateZ(60px)' }}>
-                    <div className="absolute w-44 h-44 bg-brand-sage/10 rounded-full blur-2xl -z-10" />
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img 
-                      src="/images/healtox_hero_tea.png" 
-                      alt="Healtox Premium Tea Packaging"
-                      className="max-h-64 object-contain drop-shadow-[0_25px_30px_rgba(0,0,0,0.12)] group-hover:scale-105 transition-transform duration-500" 
-                    />
-                  </div>
-
-                  {/* Lower metadata */}
-                  <div className="space-y-2" style={{ transform: 'translateZ(40px)' }}>
-                    <div className="text-xs text-brand-sage tracking-wider font-semibold">
-                      BAMBOO & DEW TEA
-                    </div>
-                    <div className="flex justify-between items-end">
-                      <span className="font-serif text-xl font-medium tracking-wide">하동 대나무 이슬차</span>
-                      <span className="text-xs text-brand-olive font-semibold">80g / 2.8 oz</span>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-
-              {/* Auxiliary Floating Organic Leaves (Antigravity ambience) */}
-              <motion.div
-                animate={{ y: [-15, 10, -15], rotate: [0, 20, 0] }}
-                transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-6 -left-6 w-12 h-12 pointer-events-none drop-shadow-md"
-              >
-                <svg viewBox="0 0 100 100" fill="none" className="w-full h-full text-brand-sage opacity-75">
-                  <path d="M10 80 C40 80, 80 50, 90 20 C60 20, 20 50, 10 80 Z" fill="currentColor" />
-                  <path d="M10 80 Q50 50 90 20" stroke="#2C3E2B" strokeWidth="2" />
-                </svg>
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [10, -15, 10], rotate: [15, -10, 15] }}
-                transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute bottom-10 -right-8 w-14 h-14 pointer-events-none drop-shadow-md"
-              >
-                <svg viewBox="0 0 100 100" fill="none" className="w-full h-full text-brand-olive opacity-60">
-                  <path d="M20 90 C50 80, 80 40, 85 10 C55 15, 25 50, 20 90 Z" fill="currentColor" />
-                  <path d="M20 90 Q52.5 50 85 10" stroke="#F9F8F6" strokeWidth="2" />
-                </svg>
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [-5, 8, -5], rotate: [-20, 10, -20] }}
-                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -bottom-4 left-1/4 w-8 h-8 pointer-events-none drop-shadow-sm"
-              >
-                <svg viewBox="0 0 100 100" fill="none" className="w-full h-full text-brand-sage/40">
-                  <path d="M10 90 C35 70, 75 40, 90 10 C60 15, 30 50, 10 90 Z" fill="currentColor" />
-                </svg>
-              </motion.div>
-
             </motion.div>
           </div>
 
         </div>
+
+        {/* Bottom-right: Scroll cue */}
+        <div className="absolute bottom-8 right-10 flex flex-col items-center gap-2 opacity-50">
+          <span className="text-white text-[9px] tracking-[0.2em] uppercase" style={{ writingMode: 'vertical-rl', letterSpacing: '0.2em' }}>Scroll</span>
+          <div style={{ width: '1px', height: '40px', background: 'linear-gradient(to bottom, white, transparent)' }} />
+        </div>
+
       </section>
 
       {/* 3. Brand Philosophy / About Section */}
