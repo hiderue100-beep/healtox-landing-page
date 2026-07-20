@@ -5,15 +5,6 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-  }
-
-  * {
-    border-color: #E4E4E7;
-  }
-
   body {
     background-color: #FFFFFF;
     color: #09090B;
@@ -21,31 +12,50 @@
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    selection-background-color: #10B981;
-    selection-color: #FFFFFF;
-  }
-
-  ::selection {
-    background-color: #10B981;
-    color: #FFFFFF;
   }
 }
 
-/* Glassmorphic backdrop utility */
+/* Glassmorphism Navigation & Cards */
 .glass-nav {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(228, 228, 231, 0.7);
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(12px);
   border: 1px solid #E4E4E7;
 }
 
-/* Smooth scrollbar styling */
+/* Dynamic Gradient Accent Themes */
+.theme-energy {
+  background: linear-gradient(135deg, #FFFBEB 0%, #FFFFFF 100%);
+  border-color: #FDE68A;
+}
+
+.theme-focus {
+  background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%);
+  border-color: #BFDBFE;
+}
+
+.theme-balance {
+  background: linear-gradient(135deg, #FDF2F8 0%, #FFFFFF 100%);
+  border-color: #FBCFE8;
+}
+
+.theme-sleep {
+  background: linear-gradient(135deg, #F5F3FF 0%, #FFFFFF 100%);
+  border-color: #DDD6FE;
+}
+
+.theme-hydration {
+  background: linear-gradient(135deg, #ECFDF5 0%, #FFFFFF 100%);
+  border-color: #A7F3D0;
+}
+
+/* Custom Scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -60,12 +70,10 @@
   background: #10B981;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
-/* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

@@ -1,9 +1,11 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import FindMyTeaQuiz from "@/components/FindMyTeaQuiz";
+import HydrationTracker from "@/components/HydrationTracker";
 import DailyRitual from "@/components/DailyRitual";
-import ScienceSection from "@/components/ScienceSection";
+import IngredientExplorer from "@/components/IngredientExplorer";
 import FarmersMap from "@/components/FarmersMap";
+import ScienceSection from "@/components/ScienceSection";
 import JournalSection from "@/components/JournalSection";
 import InstagramGrid from "@/components/InstagramGrid";
 import Newsletter from "@/components/Newsletter";
@@ -15,9 +17,11 @@ export default function Home() {
       <Navbar />
       <Hero />
       <FindMyTeaQuiz />
+      <HydrationTracker />
       <DailyRitual />
-      <ScienceSection />
+      <IngredientExplorer />
       <FarmersMap />
+      <ScienceSection />
       <JournalSection />
       <InstagramGrid />
       <Newsletter />
