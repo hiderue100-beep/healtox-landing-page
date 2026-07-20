@@ -11,7 +11,8 @@ const CONDITIONS = [
     id: "hydration",
     emoji: "💧",
     label: "Pure Hydration Mode",
-    headline: "물이 맛있다! 힐톡스.",
+    titleLine1: "물이 맛있다!",
+    titleLine2: "힐톡스.",
     subhead: "상주 감잎과 괴산 옥수수수염의 구수한 0-Calorie 수분 음용수.",
     badgeBg: "bg-white text-cyan-700 font-extrabold",
     btnColor: "bg-white text-cyan-700 hover:bg-cyan-50 font-extrabold shadow-2xl",
@@ -21,7 +22,8 @@ const CONDITIONS = [
     id: "energy",
     emoji: "⚡",
     label: "Energy Protocol",
-    headline: "아침 신진대사를 깨우는 수분.",
+    titleLine1: "아침 신진대사를 깨우는",
+    titleLine2: "수분 힐톡스.",
     subhead: "보성 야생 박하와 녹차 잎으로 서늘하고 시원하게 충전하세요.",
     badgeBg: "bg-white text-emerald-700 font-extrabold",
     btnColor: "bg-white text-emerald-700 hover:bg-emerald-50 font-extrabold shadow-2xl",
@@ -31,7 +33,8 @@ const CONDITIONS = [
     id: "balance",
     emoji: "🍊",
     label: "Women's Balance Mode",
-    headline: "여성 순환을 감싸안는 온기.",
+    titleLine1: "여성 순환을 감싸안는",
+    titleLine2: "온기 힐톡스.",
     subhead: "제주 동백꽃과 영천 대추로 은은하고 아늑한 이너뷰티 밸런스.",
     badgeBg: "bg-white text-amber-700 font-extrabold",
     btnColor: "bg-white text-amber-700 hover:bg-amber-50 font-extrabold shadow-2xl",
@@ -80,7 +83,7 @@ export default function DeliciousWaterHero() {
         {/* Hero Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
-          {/* Left Column: Main Headline "물이 맛있다! 힐톡스" */}
+          {/* Left Column: Main Headline "물이 맛있다! \n 힐톡스." */}
           <div className="lg:col-span-7 flex flex-col justify-center">
             
             <AnimatePresence mode="wait">
@@ -102,9 +105,10 @@ export default function DeliciousWaterHero() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
-                className="text-5xl sm:text-7xl lg:text-[88px] font-black text-white tracking-tight leading-[1.02] mb-6 drop-shadow-[0_10px_35px_rgba(0,0,0,0.3)]"
+                className="text-5xl sm:text-7xl lg:text-[88px] font-black text-white tracking-tight leading-[1.05] mb-6 drop-shadow-[0_10px_35px_rgba(0,0,0,0.3)]"
               >
-                {selectedCondition.headline}<br />
+                {selectedCondition.titleLine1}<br />
+                {selectedCondition.titleLine2}<br />
                 <span className="text-yellow-300 font-black">
                   Hydrate Deliciously.
                 </span>
@@ -154,7 +158,7 @@ export default function DeliciousWaterHero() {
                 <div className="relative z-10 w-full h-full rounded-2xl overflow-hidden flex items-center justify-center">
                   <Image
                     src={selectedCondition.image}
-                    alt={selectedCondition.headline}
+                    alt={`${selectedCondition.titleLine1} ${selectedCondition.titleLine2}`}
                     fill
                     priority
                     className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
