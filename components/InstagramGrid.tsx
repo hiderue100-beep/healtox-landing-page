@@ -1,9 +1,19 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Instagram, Heart, MessageCircle, ExternalLink } from "lucide-react";
 
-const INSTA_POSTS = [
+interface InstaPost {
+  id: string | number;
+  image: string;
+  likes: string;
+  comments: string;
+  caption: string;
+  link: string;
+}
+
+const FALLBACK_POSTS: InstaPost[] = [
   {
     id: 1,
     image: "/images/healtox_hero_energetic.png",
@@ -39,6 +49,30 @@ const INSTA_POSTS = [
 ];
 
 export default function InstagramGrid() {
+  const [posts, setPosts] = useState<InstaPost[]>(FALLBACK_POSTS);
+
+  useEffect(() => {
+    // Attempt to fetch real live posts from Instagram Graph API Route
+    fetch("/api/instagram")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.posts && data.posts.length > 0) {
+          const livePosts = data.posts.slice(0, 4).map((p: any) => ({
+            id: p.id,
+            image: p.media_url || p.thumbnail_url || "/images/healtox_hero_energetic.png",
+            likes: p.like_count ? `${p.like_count}` : "❤️",
+            comments: p.comments_count ? `${p.comments_count}` : "💬",
+            caption: p.caption || "HEALTOX Official Instagram Post",
+            link: p.permalink || "https://www.instagram.com/healtox_/",
+          }));
+          setPosts(livePosts);
+        }
+      })
+      .catch(() => {
+        // Use fallback static posts if API token is not set
+      });
+  }, []);
+
   return (
     <section className="py-24 bg-white border-t border-surface-border">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -68,7 +102,7 @@ export default function InstagramGrid() {
 
         {/* 4 Photo Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-          {INSTA_POSTS.map((post) => (
+          {posts.map((post) => (
             <a
               key={post.id}
               href={post.link}
