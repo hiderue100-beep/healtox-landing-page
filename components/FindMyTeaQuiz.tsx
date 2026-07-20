@@ -24,7 +24,7 @@ const QUESTIONS = [
     options: [
       { id: "Morning", label: "Morning Ritual (07:00 - 10:00)", desc: "하루를 개운하게 여는 첫 수분", icon: "🌅" },
       { id: "Afternoon", label: "Afternoon Reset (13:00 - 16:00)", desc: "오후 피로를 깨우는 리프레시", icon: "☀️" },
-      { id: "Evening", label: "Evening Wind Down (19:00 - 21:00)", desc: "하루 긴장을 푸는 미니멀 타임", icon: "🌆" },
+      { id: "Evening", label: "Evening Wind Down (19:00 - 21:00)", desc: "하루 긴장을 푸는 미니멀 타임", icon: "<ctrl42>" },
       { id: "Night", label: "Night Sleep (22:00 - 24:00)", desc: "카페인 없는 편안한 나이트", icon: "🌌" },
     ],
   },
@@ -269,12 +269,12 @@ export default function FindMyTeaQuiz() {
               </div>
 
               <div className="p-4 rounded-2xl bg-orange-500 text-white flex items-center justify-between gap-4 shadow-glow-orange">
-                <div className="text-xs font-extrabold">이 진단 결과를 이메일로 받아보시겠어요?</div>
+                <div className="text-xs font-extrabold">오늘의 진단 결과에 맞게 Daily Ritual을 시작해보세요!</div>
                 <a
-                  href="#newsletter"
+                  href="#rituals"
                   className="px-5 py-2.5 rounded-full bg-white text-orange-600 font-extrabold text-xs hover:bg-orange-50 transition-colors"
                 >
-                  구독하고 저장하기
+                  Daily Ritual 보기
                 </a>
               </div>
             </motion.div>

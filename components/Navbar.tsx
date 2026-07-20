@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Menu, X, ArrowUpRight, Search, Heart, Droplets } from "lucide-react";
+import { Sparkles, Menu, X, ArrowUpRight, Search, Heart } from "lucide-react";
 import GlobalSearchModal from "./GlobalSearchModal";
 import FavoritesDrawer from "./FavoritesDrawer";
 
@@ -10,7 +10,6 @@ const NAV_ITEMS = [
   { label: "Find My Tea", href: "#find-my-tea" },
   { label: "Daily Rituals", href: "#rituals" },
   { label: "원료 도감", href: "#ingredient-explorer" },
-  { label: "Science", href: "#science" },
 ];
 
 export default function Navbar() {

@@ -41,12 +41,6 @@ export default function Footer() {
               <li>
                 <a href="#ingredient-explorer" className="hover:text-orange-600 transition-colors">Botanical Pharmacopoeia (원료 도감)</a>
               </li>
-              <li>
-                <a href="#science" className="hover:text-orange-600 transition-colors">Science & Bioactives</a>
-              </li>
-              <li>
-                <a href="#newsletter" className="hover:text-orange-600 transition-colors">Weekly Newsletter</a>
-              </li>
             </ul>
           </div>
 
