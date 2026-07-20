@@ -10,6 +10,7 @@ const INSTA_POSTS = [
     likes: "2.4k",
     comments: "142",
     caption: "Dynamic Botanical Water Splash. Pure Hydration, 0 Sugar 0 Caffeine. 💧✨ #HEALTOX",
+    link: "https://www.instagram.com/healtox_/",
   },
   {
     id: 2,
@@ -17,6 +18,7 @@ const INSTA_POSTS = [
     likes: "1.8k",
     comments: "98",
     caption: "High Speed Hydration Burst with Fresh Boseong Mint & Citrus. 🌿🍋 #DailyRitual",
+    link: "https://www.instagram.com/healtox_/",
   },
   {
     id: 3,
@@ -24,6 +26,7 @@ const INSTA_POSTS = [
     likes: "3.1k",
     comments: "210",
     caption: "Awaken with Active Botanical Hydration after Morning Stretch. ☀️ #WomensWellness",
+    link: "https://www.instagram.com/healtox_/",
   },
   {
     id: 4,
@@ -31,6 +34,7 @@ const INSTA_POSTS = [
     likes: "2.7k",
     comments: "165",
     caption: "Jeju Citrus & Camellia Petal Hydration Blend for Women's Bloom. 🌺🍊 #InnerGlow",
+    link: "https://www.instagram.com/healtox_/",
   },
 ];
 
@@ -42,22 +46,23 @@ export default function InstagramGrid() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-12">
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 mb-2">
-              <Instagram className="w-4 h-4 text-emerald-600" />
-              @healtox.ritual
+            <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-orange-600 mb-2">
+              <Instagram className="w-4 h-4 text-orange-600" />
+              @healtox_
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-primary-DEFAULT tracking-tight">
-              Community & Energetic Botanical Mood
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#09090B] tracking-tight">
+              Community & Botanical Mood (@healtox_)
             </h2>
           </div>
           <a
-            href="https://instagram.com"
+            href="https://www.instagram.com/healtox_/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-surface-border text-xs font-bold text-primary-DEFAULT hover:bg-surface-subtle transition-colors self-start sm:self-auto"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 text-white text-xs font-extrabold hover:opacity-95 transition-all shadow-glow-orange self-start sm:self-auto"
           >
-            Follow on Instagram
-            <ExternalLink className="w-3.5 h-3.5 text-emerald-600" />
+            <Instagram className="w-4 h-4" />
+            Follow @healtox_ on Instagram
+            <ExternalLink className="w-3.5 h-3.5" />
           </a>
         </div>
 
@@ -66,7 +71,7 @@ export default function InstagramGrid() {
           {INSTA_POSTS.map((post) => (
             <a
               key={post.id}
-              href="https://instagram.com"
+              href={post.link}
               target="_blank"
               rel="noopener noreferrer"
               className="relative aspect-square rounded-2xl overflow-hidden glass-card group shadow-subtle border border-surface-border block"
@@ -80,20 +85,25 @@ export default function InstagramGrid() {
               />
 
               {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-primary-DEFAULT/75 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-between text-white">
+              <div className="absolute inset-0 bg-slate-950/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-between text-white">
                 <div className="flex items-center justify-between text-xs font-bold">
                   <span className="flex items-center gap-1">
-                    <Heart className="w-4 h-4 fill-white" />
+                    <Heart className="w-4 h-4 fill-white text-white" />
                     {post.likes}
                   </span>
                   <span className="flex items-center gap-1">
-                    <MessageCircle className="w-4 h-4 fill-white" />
+                    <MessageCircle className="w-4 h-4 fill-white text-white" />
                     {post.comments}
                   </span>
                 </div>
-                <p className="text-xs text-white/90 line-clamp-3 leading-relaxed font-medium">
-                  {post.caption}
-                </p>
+                <div>
+                  <p className="text-xs text-white/90 line-clamp-3 leading-relaxed font-medium mb-2">
+                    {post.caption}
+                  </p>
+                  <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-orange-400">
+                    Visit @healtox_ <ExternalLink className="w-3 h-3" />
+                  </span>
+                </div>
               </div>
             </a>
           ))}

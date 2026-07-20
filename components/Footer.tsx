@@ -55,13 +55,14 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-3">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/healtox_/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-full border border-surface-border hover:bg-surface-subtle text-primary-DEFAULT transition-colors"
-                aria-label="Instagram"
+                className="p-2.5 rounded-full border border-surface-border hover:bg-orange-50 text-orange-600 hover:border-orange-300 transition-colors flex items-center gap-2 text-xs font-bold"
+                aria-label="Instagram @healtox_"
               >
-                <Instagram className="w-4 h-4" />
+                <Instagram className="w-4 h-4 text-orange-600" />
+                <span>@healtox_</span>
               </a>
               <a
                 href="#"

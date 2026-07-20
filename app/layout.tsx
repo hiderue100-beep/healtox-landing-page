@@ -64,7 +64,7 @@ const jsonLd = {
       "url": "https://healtox-landing-page-vq2l.vercel.app/",
       "logo": "https://healtox-landing-page-vq2l.vercel.app/images/healtox_botanical_hero.png",
       "description": "Modern Botanical Wellness Brand powered by Korean Ingredients.",
-      "sameAs": ["https://instagram.com/healtox.ritual"]
+      "sameAs": ["https://www.instagram.com/healtox_/"]
     },
     {
       "@type": "WebSite",
