@@ -1,6 +1,6 @@
 "use client";
 
-import { Sparkles, Instagram, Globe, ArrowUpRight } from "lucide-react";
+import { Sparkles, Instagram, Globe } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -9,13 +9,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
           
           {/* Brand Info */}
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-6">
             <a href="#" className="flex items-center gap-2.5 mb-6 group">
-              <span className="w-8 h-8 rounded-full bg-botanical-500 flex items-center justify-center text-white shadow-glow">
+              <span className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center text-white shadow-glow">
                 <Sparkles className="w-4 h-4 fill-white" />
               </span>
               <span className="text-xl font-bold tracking-tight text-primary-DEFAULT">
-                HEALTOX<span className="text-botanical-500 font-light ml-0.5">.</span>
+                HEALTOX<span className="text-orange-500 font-light ml-0.5">.</span>
               </span>
             </a>
             <p className="text-xs sm:text-sm text-primary-muted leading-relaxed max-w-sm mb-6">
@@ -27,54 +27,37 @@ export default function Footer() {
           </div>
 
           {/* Nav Column 1 */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-3">
             <div className="text-xs font-bold uppercase tracking-wider text-primary-DEFAULT mb-4">
-              Explore
+              Explore Protocols
             </div>
             <ul className="space-y-2.5 text-xs text-primary-muted font-medium">
               <li>
-                <a href="#find-my-tea" className="hover:text-botanical-600 transition-colors">Find My Tea Diagnostic</a>
+                <a href="#find-my-tea" className="hover:text-orange-600 transition-colors">Find My Tea Diagnostic</a>
               </li>
               <li>
-                <a href="#rituals" className="hover:text-botanical-600 transition-colors">Daily Rituals Protocol</a>
+                <a href="#rituals" className="hover:text-orange-600 transition-colors">Daily Rituals Protocol</a>
               </li>
               <li>
-                <a href="#science" className="hover:text-botanical-600 transition-colors">Science & Bioactives</a>
+                <a href="#ingredient-explorer" className="hover:text-orange-600 transition-colors">Botanical Pharmacopoeia (원료 도감)</a>
               </li>
               <li>
-                <a href="#farmers" className="hover:text-botanical-600 transition-colors">Korean Sourcing Map</a>
+                <a href="#science" className="hover:text-orange-600 transition-colors">Science & Bioactives</a>
+              </li>
+              <li>
+                <a href="#newsletter" className="hover:text-orange-600 transition-colors">Weekly Newsletter</a>
               </li>
             </ul>
           </div>
 
           {/* Nav Column 2 */}
-          <div className="lg:col-span-2">
-            <div className="text-xs font-bold uppercase tracking-wider text-primary-DEFAULT mb-4">
-              Editorial
-            </div>
-            <ul className="space-y-2.5 text-xs text-primary-muted font-medium">
-              <li>
-                <a href="#journal" className="hover:text-botanical-600 transition-colors">Hydration Research</a>
-              </li>
-              <li>
-                <a href="#journal" className="hover:text-botanical-600 transition-colors">Women's Wellness</a>
-              </li>
-              <li>
-                <a href="#journal" className="hover:text-botanical-600 transition-colors">Tea Science Digest</a>
-              </li>
-              <li>
-                <a href="#newsletter" className="hover:text-botanical-600 transition-colors">Weekly Newsletter</a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Nav Column 3 */}
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-3">
             <div className="text-xs font-bold uppercase tracking-wider text-primary-DEFAULT mb-4">
               Connect & Legal
             </div>
-            <p className="text-xs text-primary-muted mb-4">
-              주소: 서울특별시 강남구 도산대로 웰니스 타워 8F | 사업자등록번호: 107-88-00912
+            <p className="text-xs text-primary-muted mb-4 leading-relaxed">
+              주소: 서울특별시 강남구 도산대로 웰니스 타워 8F<br />
+              사업자등록번호: 107-88-00912
             </p>
             <div className="flex items-center gap-3">
               <a

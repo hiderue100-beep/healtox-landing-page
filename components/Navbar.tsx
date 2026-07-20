@@ -10,9 +10,7 @@ const NAV_ITEMS = [
   { label: "Find My Tea", href: "#find-my-tea" },
   { label: "Daily Rituals", href: "#rituals" },
   { label: "원료 도감", href: "#ingredient-explorer" },
-  { label: "Farmers Map", href: "#farmers" },
   { label: "Science", href: "#science" },
-  { label: "Journal", href: "#journal" },
 ];
 
 export default function Navbar() {
@@ -43,11 +41,11 @@ export default function Navbar() {
           
           {/* Brand Logo */}
           <a href="#" className="flex items-center gap-2.5 group">
-            <span className="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center text-white shadow-glow group-hover:scale-105 transition-transform duration-300">
+            <span className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center text-white shadow-glow group-hover:scale-105 transition-transform duration-300">
               <Sparkles className="w-4 h-4 fill-white" />
             </span>
             <span className="text-xl font-extrabold tracking-tight text-primary-DEFAULT group-hover:opacity-80 transition-opacity">
-              HEALTOX<span className="text-emerald-500 font-light ml-0.5">.</span>
+              HEALTOX<span className="text-orange-500 font-light ml-0.5">.</span>
             </span>
           </a>
 
@@ -60,19 +58,19 @@ export default function Navbar() {
                 className="text-xs font-bold text-primary-muted hover:text-primary-DEFAULT transition-colors tracking-wide relative group py-1"
               >
                 {item.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-500 group-hover:w-full transition-all duration-300 ease-out" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300 ease-out" />
               </a>
             ))}
           </nav>
 
-          {/* Header Utilities (Search + Favorites + Start Ritual CTA) */}
+          {/* Header Utilities */}
           <div className="hidden lg:flex items-center gap-3">
             <button
               onClick={() => setSearchOpen(true)}
               className="p-2.5 rounded-full bg-surface-subtle hover:bg-surface-border text-primary-DEFAULT transition-colors flex items-center gap-1 text-xs font-bold"
               aria-label="통합 검색"
             >
-              <Search className="w-4 h-4 text-emerald-600" />
+              <Search className="w-4 h-4 text-orange-500" />
             </button>
 
             <button
@@ -85,7 +83,7 @@ export default function Navbar() {
 
             <a
               href="#find-my-tea"
-              className="px-5 py-2.5 rounded-full text-xs font-bold tracking-wider uppercase bg-primary-DEFAULT text-white hover:bg-emerald-600 transition-all duration-300 flex items-center gap-1.5 shadow-subtle hover:shadow-glow"
+              className="px-5 py-2.5 rounded-full text-xs font-bold tracking-wider uppercase bg-orange-500 text-white hover:bg-orange-600 transition-all duration-300 flex items-center gap-1.5 shadow-subtle hover:shadow-glow-orange"
             >
               Start Ritual
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -99,7 +97,7 @@ export default function Navbar() {
               className="p-2 rounded-lg text-primary-DEFAULT hover:bg-surface-subtle"
               aria-label="검색"
             >
-              <Search className="w-5 h-5 text-emerald-600" />
+              <Search className="w-5 h-5 text-orange-500" />
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -133,7 +131,7 @@ export default function Navbar() {
                   key={item.label}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-base font-bold text-primary-DEFAULT hover:text-emerald-600 py-2 border-b border-surface-subtle transition-colors"
+                  className="text-base font-bold text-primary-DEFAULT hover:text-orange-600 py-2 border-b border-surface-subtle transition-colors"
                 >
                   {item.label}
                 </a>
@@ -152,7 +150,7 @@ export default function Navbar() {
                 <a
                   href="#find-my-tea"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex-1 py-3 rounded-full text-center text-xs font-bold tracking-wider uppercase bg-primary-DEFAULT text-white hover:bg-emerald-600 transition-colors flex items-center justify-center gap-1.5"
+                  className="flex-1 py-3 rounded-full text-center text-xs font-bold tracking-wider uppercase bg-orange-500 text-white hover:bg-orange-600 transition-colors flex items-center justify-center gap-1.5"
                 >
                   Start Ritual
                   <ArrowUpRight className="w-4 h-4" />
