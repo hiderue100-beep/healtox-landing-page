@@ -110,21 +110,21 @@ export default function FarmersMap() {
   const [hoveredFarm, setHoveredFarm] = useState<string | null>(null);
 
   return (
-    <section id="farmers" className="py-24 bg-white relative overflow-hidden border-t border-surface-border">
+    <section id="farmers" className="py-24 bg-gradient-to-br from-slate-50 via-emerald-50/50 to-teal-50 relative overflow-hidden border-t border-emerald-100">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
-        {/* Header - Minimal Tiger Morning Style */}
+        {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-extrabold uppercase tracking-wider mb-3">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-900 text-xs font-extrabold uppercase tracking-wider mb-3 shadow-sm">
               <Sparkles className="w-4 h-4 text-emerald-600" />
               Sourcing Map
             </div>
-            <h2 className="text-4xl sm:text-5xl font-extrabold text-primary-DEFAULT tracking-tight leading-none">
+            <h2 className="text-4xl sm:text-5xl font-extrabold text-[#09090B] tracking-tight leading-none">
               Rooted in Korean Soils
             </h2>
           </div>
-          <p className="text-sm text-primary-muted max-w-sm font-medium">
+          <p className="text-sm text-primary-muted max-w-sm font-semibold">
             대한민국 5대 청정 지역 파트너 농가의 원료 위치를 지도로 확인하세요.
           </p>
         </div>
@@ -132,61 +132,60 @@ export default function FarmersMap() {
         {/* Map & Farm Detail Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
-          {/* Left: High Fidelity Accurate South Korea Vector SVG Map */}
-          <div className="lg:col-span-5 glass-card rounded-3xl p-6 bg-surface-DEFAULT border border-surface-border shadow-elevated relative flex flex-col justify-between">
+          {/* Left: High-Fidelity Accurate South Korea Vector Map SVG */}
+          <div className="lg:col-span-5 glass-card rounded-3xl p-6 bg-white border border-emerald-200 shadow-2xl relative flex flex-col justify-between">
             
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full flex items-center gap-1.5">
+              <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-900 bg-emerald-100 px-3 py-1 rounded-full flex items-center gap-1.5 border border-emerald-300">
                 <Compass className="w-3.5 h-3.5 text-emerald-600 animate-spin-slow" />
                 South Korea Provincial Map
               </span>
-              <span className="text-xs font-mono font-bold text-primary-subtle">
+              <span className="text-xs font-mono font-extrabold text-primary-subtle">
                 5 Partner Regions
               </span>
             </div>
 
-            {/* High-Fidelity Accurate South Korea Vector Map SVG */}
+            {/* Bright Korea Vector Map SVG Canvas */}
             <div className="relative w-full h-[380px] bg-white rounded-2xl border border-surface-border p-4 flex items-center justify-center shadow-inner overflow-hidden">
               <svg
                 viewBox="0 0 400 480"
                 className="w-full h-full max-h-[360px] drop-shadow-md"
               >
-                {/* Background Grid Pattern */}
                 <defs>
-                  <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <pattern id="grid-light" width="20" height="20" patternUnits="userSpaceOnUse">
                     <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#E4E4E7" strokeWidth="0.5" />
                   </pattern>
                 </defs>
-                <rect width="100%" height="100%" fill="url(#grid)" opacity="0.6" />
+                <rect width="100%" height="100%" fill="url(#grid-light)" opacity="0.8" />
 
                 {/* Detailed South Korea Provincial Boundaries */}
-                <g fill="#F4F4F5" stroke="#D4D4D8" strokeWidth="1.5">
-                  {/* Seoul & Gyeonggi Province */}
-                  <path d="M 130 50 L 190 40 L 210 70 L 215 110 L 170 120 L 130 95 Z" fill="#E4E4E7" />
-                  <text x="160" y="80" fontSize="9" fontWeight="bold" fill="#71717A">Gyeonggi</text>
+                <g fill="#F4F4F5" stroke="#CBD5E1" strokeWidth="1.5">
+                  {/* Gyeonggi */}
+                  <path d="M 130 50 L 190 40 L 210 70 L 215 110 L 170 120 L 130 95 Z" fill="#E2E8F0" />
+                  <text x="160" y="80" fontSize="9" fontWeight="bold" fill="#475569">Gyeonggi</text>
 
-                  {/* Gangwon Province */}
-                  <path d="M 190 40 L 270 50 L 290 120 L 215 110 L 210 70 Z" fill="#E5E7EB" />
-                  <text x="235" y="85" fontSize="9" fontWeight="bold" fill="#71717A">Gangwon</text>
+                  {/* Gangwon */}
+                  <path d="M 190 40 L 270 50 L 290 120 L 215 110 L 210 70 Z" fill="#F1F5F9" />
+                  <text x="235" y="85" fontSize="9" fontWeight="bold" fill="#475569">Gangwon</text>
 
-                  {/* Chungcheong Province */}
-                  <path d="M 130 95 L 170 120 L 215 110 L 225 170 L 175 180 L 125 150 Z" fill="#F3F4F6" />
-                  <text x="165" y="145" fontSize="9" fontWeight="bold" fill="#71717A">Chungcheong</text>
+                  {/* Chungcheong */}
+                  <path d="M 130 95 L 170 120 L 215 110 L 225 170 L 175 180 L 125 150 Z" fill="#F8FAFC" />
+                  <text x="165" y="145" fontSize="9" fontWeight="bold" fill="#475569">Chungcheong</text>
 
-                  {/* Gyeongsang Province (Sangju, Yeongcheon) */}
-                  <path d="M 215 110 L 290 120 L 325 210 L 295 310 L 215 310 L 225 170 Z" fill="#FDF2F8" stroke="#FBCFE8" />
-                  <text x="260" y="165" fontSize="9" fontWeight="bold" fill="#EC4899">Gyeongsang</text>
+                  {/* Gyeongsang */}
+                  <path d="M 215 110 L 290 120 L 325 210 L 295 310 L 215 310 L 225 170 Z" fill="#FFF7ED" stroke="#FDBA74" />
+                  <text x="260" y="165" fontSize="9" fontWeight="bold" fill="#EA580C">Gyeongsang</text>
 
-                  {/* Jeolla Province (Boseong, Hadong) */}
-                  <path d="M 125 150 L 175 180 L 225 170 L 215 310 L 135 340 L 105 240 Z" fill="#ECFDF5" stroke="#A7F3D0" />
+                  {/* Jeolla */}
+                  <path d="M 125 150 L 175 180 L 225 170 L 215 310 L 135 340 L 105 240 Z" fill="#ECFDF5" stroke="#6EE7B7" />
                   <text x="155" y="240" fontSize="9" fontWeight="bold" fill="#047857">Jeolla</text>
 
                   {/* Jeju Island */}
-                  <path d="M 90 410 C 100 400, 150 400, 160 415 C 150 435, 100 435, 90 410 Z" fill="#FFF7ED" stroke="#FDBA74" strokeWidth="2" />
-                  <text x="125" y="442" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#EA580C">Jeju Island</text>
+                  <path d="M 90 410 C 100 400, 150 400, 160 415 C 150 435, 100 435, 90 410 Z" fill="#FEF3C7" stroke="#FBBF24" strokeWidth="2" />
+                  <text x="125" y="442" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#D97706">Jeju Island</text>
                 </g>
 
-                {/* Render Interactive Farm Pins on Map */}
+                {/* Render Interactive Pins */}
                 {FARMS.map((farm) => {
                   const isSelected = selectedFarm.id === farm.id;
                   const isHovered = hoveredFarm === farm.id;
@@ -199,7 +198,6 @@ export default function FarmersMap() {
                       onMouseLeave={() => setHoveredFarm(null)}
                       className="cursor-pointer group"
                     >
-                      {/* Pulse Radar Rings */}
                       {isSelected && (
                         <>
                           <circle
@@ -207,7 +205,7 @@ export default function FarmersMap() {
                             cy={farm.cy}
                             r="24"
                             fill={farm.pinColor}
-                            opacity="0.25"
+                            opacity="0.3"
                             className="animate-ping"
                           />
                           <circle
@@ -215,12 +213,11 @@ export default function FarmersMap() {
                             cy={farm.cy}
                             r="14"
                             fill={farm.pinColor}
-                            opacity="0.35"
+                            opacity="0.4"
                           />
                         </>
                       )}
 
-                      {/* Main Pin Outer Marker Circle */}
                       <circle
                         cx={farm.cx}
                         cy={farm.cy}
@@ -231,10 +228,8 @@ export default function FarmersMap() {
                         className="transition-all duration-300 shadow-md"
                       />
 
-                      {/* Inner Dot */}
                       <circle cx={farm.cx} cy={farm.cy} r="3" fill="#FFFFFF" />
 
-                      {/* Map Label Tag */}
                       <g transform={`translate(${farm.cx + 14}, ${farm.cy + 4})`}>
                         <rect
                           x="-4"
@@ -243,7 +238,7 @@ export default function FarmersMap() {
                           height="20"
                           rx="6"
                           fill={isSelected ? farm.pinColor : "#09090B"}
-                          className="transition-colors duration-300"
+                          className="transition-colors duration-300 shadow-sm"
                         />
                         <text
                           x="4"
@@ -267,13 +262,13 @@ export default function FarmersMap() {
                 <button
                   key={f.id}
                   onClick={() => setSelectedFarm(f)}
-                  className={`px-3 py-1 rounded-full text-xs font-bold transition-all flex items-center gap-1 ${
+                  className={`px-3 py-1 rounded-full text-xs font-extrabold transition-all flex items-center gap-1 ${
                     selectedFarm.id === f.id
                       ? "bg-primary-DEFAULT text-white shadow-subtle"
-                      : "bg-white text-primary-muted border border-surface-border hover:bg-surface-subtle"
+                      : "bg-surface-subtle text-primary-muted border border-surface-border hover:bg-white"
                   }`}
                 >
-                  <span className="w-2 h-2 rounded-full" style={{ backgroundColor: f.pinColor }} />
+                  <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: f.pinColor }} />
                   {f.id}
                 </button>
               ))}
@@ -289,9 +284,8 @@ export default function FarmersMap() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4 }}
-                className="glass-card rounded-3xl p-8 bg-white border border-surface-border shadow-elevated overflow-hidden"
+                className="glass-card rounded-3xl p-8 bg-white border border-emerald-200 shadow-2xl overflow-hidden"
               >
-                {/* Visual Banner Photo */}
                 <div className="relative w-full h-56 rounded-2xl overflow-hidden mb-6 shadow-subtle border border-surface-border group">
                   <Image
                     src={selectedFarm.image}
@@ -309,16 +303,16 @@ export default function FarmersMap() {
 
                 <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
                   <div>
-                    <div className="text-xs font-extrabold text-emerald-600 uppercase mb-1">
+                    <div className="text-xs font-extrabold text-emerald-700 uppercase mb-1">
                       {selectedFarm.name}
                     </div>
-                    <h3 className="text-3xl font-extrabold text-primary-DEFAULT">
+                    <h3 className="text-3xl font-extrabold text-[#09090B]">
                       {selectedFarm.region}
                     </h3>
                   </div>
                   <div className="text-right">
                     <div className="text-xs text-primary-subtle font-medium">대표 파트너 농부</div>
-                    <div className="text-sm font-bold text-primary-DEFAULT flex items-center gap-1">
+                    <div className="text-sm font-bold text-[#09090B] flex items-center gap-1">
                       <UserCheck className="w-4 h-4 text-emerald-600" />
                       {selectedFarm.farmer}
                     </div>
@@ -327,17 +321,17 @@ export default function FarmersMap() {
 
                 <div className="p-4 rounded-xl bg-surface-subtle border border-surface-border mb-4">
                   <div className="text-xs font-bold text-primary-subtle uppercase mb-1">재배 원료 & 토양 특성</div>
-                  <div className="text-base font-extrabold text-primary-DEFAULT mb-1">{selectedFarm.crop}</div>
+                  <div className="text-base font-extrabold text-[#09090B] mb-1">{selectedFarm.crop}</div>
                   <div className="text-xs text-primary-muted">{selectedFarm.soil}</div>
                 </div>
 
-                <p className="text-xs sm:text-sm text-primary-muted leading-relaxed mb-6 font-medium">
+                <p className="text-xs sm:text-sm text-primary-muted leading-relaxed mb-6 font-semibold">
                   {selectedFarm.desc}
                 </p>
 
                 <div className="pt-4 border-t border-surface-border flex items-center justify-between text-xs text-primary-subtle">
                   <div className="flex items-center gap-3">
-                    <span className="flex items-center gap-1 font-bold text-emerald-700">
+                    <span className="flex items-center gap-1 font-bold text-emerald-800">
                       <ShieldCheck className="w-4 h-4 text-emerald-600" /> 100% 유기농 재배
                     </span>
                   </div>

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Check, ArrowRight, RotateCcw, BookOpen, Mail, ShieldAlert } from "lucide-react";
+import { Sparkles, Check, RotateCcw } from "lucide-react";
 
 const QUESTIONS = [
   {
@@ -10,11 +10,11 @@ const QUESTIONS = [
     title: "오늘 당신의 몸과 마음이 가장 필요로 하는 것은?",
     subtitle: "당신의 웰니스 우선순위를 선택하세요.",
     options: [
-      { id: "Energy", label: "Energy", desc: "활력과 에너지가 필요한 아침 ⚡", icon: "⚡" },
-      { id: "Focus", label: "Focus", desc: "명료한 집중력이 필요할 때 🎯", icon: "🎯" },
-      { id: "Hydration", label: "Hydration", desc: "순수한 수분 보충 & 부종 관리 💧", icon: "💧" },
-      { id: "Sleep", label: "Sleep", desc: "깊고 평온한 렘수면 🌙", icon: "🌙" },
-      { id: "Women's Balance", label: "Women's Balance", desc: "여성 순환 밸런스 & 이너뷰티 🌸", icon: "🌸" },
+      { id: "Energy", label: "Energy ⚡", desc: "활력과 에너지가 필요한 아침", icon: "⚡" },
+      { id: "Focus", label: "Focus 🎯", desc: "명료한 집중력이 필요할 때", icon: "🎯" },
+      { id: "Hydration", label: "Hydration 💧", desc: "순수한 수분 보충 & 부종 관리", icon: "💧" },
+      { id: "Sleep", label: "Sleep 🌙", desc: "깊고 평온한 렘수면", icon: "🌙" },
+      { id: "Women's Balance", label: "Women's Balance 🌸", desc: "여성 순환 밸런스 & 이너뷰티", icon: "🌸" },
     ],
   },
   {
@@ -145,45 +145,40 @@ export default function FindMyTeaQuiz() {
   const result = getResult();
 
   return (
-    <section id="find-my-tea" className="py-24 bg-gradient-to-br from-emerald-950 via-slate-900 to-teal-950 text-white relative overflow-hidden border-y border-emerald-800/40">
+    <section id="find-my-tea" className="py-24 bg-gradient-to-br from-emerald-50 via-teal-50 to-emerald-100/60 text-[#09090B] relative overflow-hidden border-y border-emerald-200">
       
-      {/* Background Ambient Glow */}
-      <div className="absolute top-0 right-1/3 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-
       <div className="max-w-4xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-extrabold uppercase tracking-wider mb-4 shadow-sm">
-            <Sparkles className="w-4 h-4 text-emerald-400" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-900 text-xs font-extrabold uppercase tracking-wider mb-3 shadow-sm">
+            <Sparkles className="w-4 h-4 text-emerald-600" />
             Bespoke Diagnostic Tool
           </div>
-          <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight mb-3">
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-[#09090B] tracking-tight leading-tight mb-2">
             Find My Tea Ritual
           </h2>
-          <p className="text-sm sm:text-base text-emerald-100/80 font-medium">
+          <p className="text-sm sm:text-base text-primary-muted font-bold">
             단 30초 진단으로 오늘 당신에게 꼭 맞는 보타니컬 수분 블렌드를 큐레이션합니다.
           </p>
         </div>
 
         {/* Diagnostic Container */}
-        <div className="bg-white/10 backdrop-blur-2xl rounded-3xl p-6 sm:p-10 shadow-2xl border border-white/20 relative">
+        <div className="bg-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-emerald-200 relative">
           {!showResult ? (
             <div>
-              {/* Progress Bar */}
               <div className="flex items-center justify-between mb-8">
-                <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-300">
+                <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-700">
                   Step 0{currentStep + 1} / 0{QUESTIONS.length}
                 </span>
-                <div className="w-36 h-2 bg-white/20 rounded-full overflow-hidden">
+                <div className="w-36 h-2.5 bg-surface-subtle rounded-full overflow-hidden border border-surface-border">
                   <div
-                    className="h-full bg-emerald-400 transition-all duration-500 ease-out"
+                    className="h-full bg-emerald-500 transition-all duration-500 ease-out"
                     style={{ width: `${((currentStep + 1) / QUESTIONS.length) * 100}%` }}
                   />
                 </div>
               </div>
 
-              {/* Active Question */}
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentStep}
@@ -192,14 +187,13 @@ export default function FindMyTeaQuiz() {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-[#09090B] tracking-tight mb-2">
                     {QUESTIONS[currentStep].title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-white/70 mb-6">
+                  <p className="text-xs sm:text-sm text-primary-muted font-semibold mb-6">
                     {QUESTIONS[currentStep].subtitle}
                   </p>
 
-                  {/* Option Grid */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     {QUESTIONS[currentStep].options.map((opt) => {
                       const isSelected = answers[QUESTIONS[currentStep].id] === opt.id;
@@ -209,19 +203,19 @@ export default function FindMyTeaQuiz() {
                           onClick={() => handleSelectOption(opt.id)}
                           className={`p-4 rounded-2xl text-left border transition-all duration-300 flex items-start gap-3.5 group ${
                             isSelected
-                              ? "bg-emerald-500 text-white border-emerald-400 ring-2 ring-emerald-400/40"
-                              : "bg-white/10 border-white/10 hover:bg-white/20 hover:border-white/30"
+                              ? "bg-emerald-500 text-white border-emerald-500 ring-2 ring-emerald-500/30"
+                              : "bg-surface-subtle border-surface-border hover:bg-white hover:border-emerald-300 shadow-subtle"
                           }`}
                         >
-                          <span className="text-2xl p-2 rounded-xl bg-white/10 border border-white/20 shrink-0">
+                          <span className="text-2xl p-2 rounded-xl bg-white border border-surface-border shrink-0 shadow-sm">
                             {opt.icon}
                           </span>
                           <div>
-                            <div className="font-extrabold text-sm text-white group-hover:text-emerald-300 transition-colors flex items-center gap-2">
+                            <div className="font-extrabold text-sm text-[#09090B] group-hover:text-emerald-700 transition-colors flex items-center gap-2">
                               {opt.label}
                               {isSelected && <Check className="w-4 h-4 text-white" />}
                             </div>
-                            <div className="text-xs text-white/70 mt-0.5 font-medium">
+                            <div className="text-xs text-primary-muted mt-0.5 font-medium">
                               {opt.desc}
                             </div>
                           </div>
@@ -233,10 +227,10 @@ export default function FindMyTeaQuiz() {
               </AnimatePresence>
 
               {currentStep > 0 && (
-                <div className="mt-6 pt-4 border-t border-white/10 flex justify-start">
+                <div className="mt-6 pt-4 border-t border-surface-border flex justify-start">
                   <button
                     onClick={() => setCurrentStep(currentStep - 1)}
-                    className="text-xs font-bold text-white/70 hover:text-white transition-colors"
+                    className="text-xs font-extrabold text-primary-subtle hover:text-primary-DEFAULT transition-colors"
                   >
                     ← 이전 질문으로 돌아가기
                   </button>
@@ -249,19 +243,19 @@ export default function FindMyTeaQuiz() {
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
             >
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 pb-6 border-b border-white/20">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 pb-6 border-b border-surface-border">
                 <div>
-                  <span className="inline-block px-3 py-1 rounded-full bg-emerald-400 text-slate-950 text-xs font-extrabold mb-2">
+                  <span className="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-xs font-extrabold mb-2">
                     {result.tag}
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-[#09090B]">
                     {result.name}
                   </h3>
-                  <p className="text-xs text-white/80 mt-1">{result.subtitle}</p>
+                  <p className="text-xs text-primary-muted font-semibold mt-1">{result.subtitle}</p>
                 </div>
                 <button
                   onClick={handleReset}
-                  className="px-4 py-2 rounded-full border border-white/30 text-xs font-bold text-white hover:bg-white/20 transition-colors flex items-center gap-1.5"
+                  className="px-4 py-2 rounded-full border border-surface-border text-xs font-extrabold text-primary-DEFAULT hover:bg-surface-subtle transition-colors flex items-center gap-1.5"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   진단 다시하기
@@ -269,37 +263,37 @@ export default function FindMyTeaQuiz() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div className="p-5 rounded-2xl bg-white/10 border border-white/20">
-                  <div className="text-xs font-extrabold text-emerald-300 uppercase mb-2">Recommended Tea Blend</div>
-                  <ul className="text-xs text-white/90 space-y-1.5 font-medium mb-3">
+                <div className="p-5 rounded-2xl bg-surface-subtle border border-surface-border">
+                  <div className="text-xs font-extrabold text-emerald-700 uppercase mb-2">Recommended Tea Blend</div>
+                  <ul className="text-xs text-[#09090B] space-y-1.5 font-bold mb-3">
                     {result.ingredients.map((ing, idx) => (
                       <li key={idx} className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                         {ing}
                       </li>
                     ))}
                   </ul>
-                  <div className="text-xs text-emerald-200 font-mono">
+                  <div className="text-xs text-primary-subtle font-mono font-bold">
                     원산지: {result.origin} ({result.caffeine})
                   </div>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-white/10 border border-white/20">
-                  <div className="text-xs font-extrabold text-emerald-300 uppercase mb-2">Daily Ritual Guide</div>
-                  <p className="text-xs text-white/90 leading-relaxed font-medium mb-2">
+                <div className="p-5 rounded-2xl bg-emerald-50 border border-emerald-200">
+                  <div className="text-xs font-extrabold text-emerald-800 uppercase mb-2">Daily Ritual Guide</div>
+                  <p className="text-xs text-[#09090B] leading-relaxed font-bold mb-2">
                     "{result.ritualTip}"
                   </p>
-                  <div className="text-xs font-bold text-amber-300 bg-black/30 p-2.5 rounded-xl border border-white/10">
+                  <div className="text-xs font-extrabold text-amber-900 bg-white p-2.5 rounded-xl border border-amber-200 shadow-sm">
                     💡 Lifestyle Tip: {result.lifestyleTip}
                   </div>
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-emerald-500 text-white flex items-center justify-between gap-4">
-                <div className="text-xs font-bold">이 진단 결과를 이메일로 받아보시겠어요?</div>
+              <div className="p-4 rounded-2xl bg-emerald-600 text-white flex items-center justify-between gap-4 shadow-glow-green">
+                <div className="text-xs font-extrabold">이 진단 결과를 이메일로 받아보시겠어요?</div>
                 <a
                   href="#newsletter"
-                  className="px-5 py-2.5 rounded-full bg-white text-slate-950 font-extrabold text-xs hover:bg-orange-400 hover:text-white transition-colors"
+                  className="px-5 py-2.5 rounded-full bg-white text-slate-950 font-extrabold text-xs hover:bg-orange-500 hover:text-white transition-colors"
                 >
                   구독하고 저장하기
                 </a>
