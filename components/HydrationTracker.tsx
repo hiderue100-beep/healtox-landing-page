@@ -43,9 +43,9 @@ export default function HydrationTracker() {
   const progressPercent = Math.min((cups / targetCups) * 100, 100);
 
   return (
-    <section className="py-20 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white relative overflow-hidden border-y border-orange-400">
+    <section className="py-20 bg-gradient-to-r from-amber-400 via-orange-500 to-emerald-500 text-white relative overflow-hidden">
       
-      {/* Background Accent Blur */}
+      {/* Background Accent Spheres */}
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-yellow-300/30 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-5xl mx-auto px-6 md:px-12 relative z-10">
@@ -56,18 +56,18 @@ export default function HydrationTracker() {
             {/* Left Column: Summary */}
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-3">
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white text-slate-950 text-xs font-extrabold shadow-sm">
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white text-orange-600 text-xs font-extrabold shadow-sm">
                   <Flame className="w-4 h-4 text-orange-500 fill-orange-500 animate-bounce" />
                   🔥 {streak}일 연속 수분 달성 중!
                 </span>
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-black/30 text-white text-xs font-bold border border-white/20">
+                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-black/20 text-white text-xs font-bold border border-white/20">
                   <Trophy className="w-3.5 h-3.5 text-yellow-300" />
                   Goal: {targetCups} Cups (1.5L)
                 </span>
               </div>
 
               <h3 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2 text-white">
-                Today's Botanical Hydration Tracker
+                Botanical Hydration Tracker
               </h3>
               <p className="text-xs sm:text-sm text-white/90 leading-relaxed mb-6 max-w-lg font-medium">
                 오늘 마신 물과 HEALTOX 수분 블렌드 잔 수를 기록하세요. 하루 4잔(1.5L)을 채우면 연속 스트릭이 달성됩니다.
@@ -79,7 +79,7 @@ export default function HydrationTracker() {
                   <span>오늘의 달성률 ({progressPercent.toFixed(0)}%)</span>
                   <span>{cups} / {targetCups} Cups ({cups * 375}ml)</span>
                 </div>
-                <div className="w-full h-3.5 bg-black/30 rounded-full overflow-hidden border border-white/30">
+                <div className="w-full h-3.5 bg-black/20 rounded-full overflow-hidden border border-white/30">
                   <motion.div
                     className="h-full bg-gradient-to-r from-yellow-300 to-white rounded-full"
                     initial={{ width: 0 }}

@@ -7,7 +7,7 @@ import { Sparkles, Check, RotateCcw } from "lucide-react";
 const QUESTIONS = [
   {
     id: "need",
-    title: "오늘 당신의 몸과 마음이 가장 필요로 하는 것은?",
+    title: "오늘 당신의 몸과 마음이 필요로 하는 것은?",
     subtitle: "당신의 웰니스 우선순위를 선택하세요.",
     options: [
       { id: "Energy", label: "Energy ⚡", desc: "활력과 에너지가 필요한 아침", icon: "⚡" },
@@ -47,9 +47,6 @@ const RECOMMENDATIONS: Record<string, {
   origin: string;
   caffeine: string;
   ritualTip: string;
-  lifestyleTip: string;
-  articleTitle: string;
-  articleCategory: string;
   ingredients: string[];
 }> = {
   "Energy": {
@@ -59,9 +56,6 @@ const RECOMMENDATIONS: Record<string, {
     origin: "전남 보성 청정 농가",
     caffeine: "Zero / Caffeine-Free",
     ritualTip: "아침 공복에 따뜻한 물 300ml와 음용하세요.",
-    lifestyleTip: "아침 햇살 5분 스트레칭과 함께 음용 시 신진대사가 깨어납니다.",
-    articleTitle: "아침 수분 섭취가 신진대사에 미치는 영향",
-    articleCategory: "Tea Science",
     ingredients: ["보성 유기농 박하", "어린 녹차 잎", "레몬밤"],
   },
   "Hydration": {
@@ -71,9 +65,6 @@ const RECOMMENDATIONS: Record<string, {
     origin: "경북 상주 & 충북 괴산 농가",
     caffeine: "Zero / Caffeine-Free",
     ritualTip: "텀블러에 냉수로 우려 지속적으로 마시세요.",
-    lifestyleTip: "나트륨 섭취 후 순수한 수분 보충으로 신체 밸런스를 되찾으세요.",
-    articleTitle: "체내 수분 유지력을 높이는 가이드",
-    articleCategory: "Hydration",
     ingredients: ["상주 감잎", "충북 옥수수수염", "검은콩"],
   },
   "Sleep": {
@@ -83,9 +74,6 @@ const RECOMMENDATIONS: Record<string, {
     origin: "경남 하동 지리산 농가",
     caffeine: "Zero / Caffeine-Free",
     ritualTip: "취침 1시간 전 미온수에 따뜻하게 음용하세요.",
-    lifestyleTip: "스마트폰을 멀리하고 따뜻한 조명 아래서 이완하세요.",
-    articleTitle: "수면 질 향상을 위한 나이트 가이드",
-    articleCategory: "Sleep",
     ingredients: ["하동 야생 차나무 잎", "산구절초", "대추"],
   },
   "Women's Balance": {
@@ -95,9 +83,6 @@ const RECOMMENDATIONS: Record<string, {
     origin: "제주 서귀포 & 경북 영천 농가",
     caffeine: "Zero / Caffeine-Free",
     ritualTip: "피로한 날 따뜻한 차로 온기를 더하세요.",
-    lifestyleTip: "아랫배를 따뜻하게 보호하며 호흡을 가다듬으세요.",
-    articleTitle: "여성의 순환 웰니스를 돕는 식물 원료",
-    articleCategory: "Women's Wellness",
     ingredients: ["제주 유기농 동백꽃", "영천 만년 대추", "당귀"],
   },
   "default": {
@@ -107,9 +92,6 @@ const RECOMMENDATIONS: Record<string, {
     origin: "대한민국 100% 국산 농가",
     caffeine: "Zero / Caffeine-Free",
     ritualTip: "기분 전환이 필요할 때 자유롭게 음용하세요.",
-    lifestyleTip: "자신만의 수분 섭취 기록을 작성해보세요.",
-    articleTitle: "나만의 Daily Ritual을 만드는 방법",
-    articleCategory: "Botanical Story",
     ingredients: ["보성 박하", "제주 진피", "상주 감잎"],
   }
 };
@@ -145,35 +127,35 @@ export default function FindMyTeaQuiz() {
   const result = getResult();
 
   return (
-    <section id="find-my-tea" className="py-24 bg-gradient-to-br from-emerald-50 via-teal-50 to-emerald-100/60 text-[#09090B] relative overflow-hidden border-y border-emerald-200">
+    <section id="find-my-tea" className="py-24 bg-gradient-to-br from-amber-500/10 via-orange-50/60 to-emerald-50 text-primary-DEFAULT relative overflow-hidden border-y border-orange-200/60">
       
       <div className="max-w-4xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-900 text-xs font-extrabold uppercase tracking-wider mb-3 shadow-sm">
-            <Sparkles className="w-4 h-4 text-emerald-600" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500 text-white text-xs font-extrabold uppercase tracking-wider mb-3 shadow-sm">
+            <Sparkles className="w-4 h-4 text-yellow-300" />
             Bespoke Diagnostic Tool
           </div>
-          <h2 className="text-4xl sm:text-5xl font-extrabold text-[#09090B] tracking-tight leading-tight mb-2">
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-primary-DEFAULT tracking-tight leading-tight mb-2">
             Find My Tea Ritual
           </h2>
           <p className="text-sm sm:text-base text-primary-muted font-bold">
-            단 30초 진단으로 오늘 당신에게 꼭 맞는 보타니컬 수분 블렌드를 큐레이션합니다.
+            30초 진단으로 오늘 당신에게 꼭 맞는 보타니컬 수분 블렌드를 큐레이션합니다.
           </p>
         </div>
 
-        {/* Diagnostic Container */}
-        <div className="bg-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-emerald-200 relative">
+        {/* Diagnostic Card Container */}
+        <div className="bg-white/95 backdrop-blur-2xl rounded-3xl p-6 sm:p-10 shadow-2xl border border-orange-200 relative">
           {!showResult ? (
             <div>
               <div className="flex items-center justify-between mb-8">
-                <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-700">
+                <span className="text-xs font-extrabold uppercase tracking-wider text-orange-600">
                   Step 0{currentStep + 1} / 0{QUESTIONS.length}
                 </span>
                 <div className="w-36 h-2.5 bg-surface-subtle rounded-full overflow-hidden border border-surface-border">
                   <div
-                    className="h-full bg-emerald-500 transition-all duration-500 ease-out"
+                    className="h-full bg-orange-500 transition-all duration-500 ease-out"
                     style={{ width: `${((currentStep + 1) / QUESTIONS.length) * 100}%` }}
                   />
                 </div>
@@ -187,7 +169,7 @@ export default function FindMyTeaQuiz() {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-[#09090B] tracking-tight mb-2">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-primary-DEFAULT tracking-tight mb-2">
                     {QUESTIONS[currentStep].title}
                   </h3>
                   <p className="text-xs sm:text-sm text-primary-muted font-semibold mb-6">
@@ -203,15 +185,15 @@ export default function FindMyTeaQuiz() {
                           onClick={() => handleSelectOption(opt.id)}
                           className={`p-4 rounded-2xl text-left border transition-all duration-300 flex items-start gap-3.5 group ${
                             isSelected
-                              ? "bg-emerald-500 text-white border-emerald-500 ring-2 ring-emerald-500/30"
-                              : "bg-surface-subtle border-surface-border hover:bg-white hover:border-emerald-300 shadow-subtle"
+                              ? "bg-orange-500 text-white border-orange-500 ring-2 ring-orange-500/30"
+                              : "bg-surface-subtle border-surface-border hover:bg-white hover:border-orange-300 shadow-subtle"
                           }`}
                         >
                           <span className="text-2xl p-2 rounded-xl bg-white border border-surface-border shrink-0 shadow-sm">
                             {opt.icon}
                           </span>
                           <div>
-                            <div className="font-extrabold text-sm text-[#09090B] group-hover:text-emerald-700 transition-colors flex items-center gap-2">
+                            <div className="font-extrabold text-sm text-primary-DEFAULT group-hover:text-orange-600 transition-colors flex items-center gap-2">
                               {opt.label}
                               {isSelected && <Check className="w-4 h-4 text-white" />}
                             </div>
@@ -245,10 +227,10 @@ export default function FindMyTeaQuiz() {
             >
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 pb-6 border-b border-surface-border">
                 <div>
-                  <span className="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-xs font-extrabold mb-2">
+                  <span className="inline-block px-3 py-1 rounded-full bg-orange-100 text-orange-900 text-xs font-extrabold mb-2">
                     {result.tag}
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-[#09090B]">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-primary-DEFAULT">
                     {result.name}
                   </h3>
                   <p className="text-xs text-primary-muted font-semibold mt-1">{result.subtitle}</p>
@@ -264,11 +246,11 @@ export default function FindMyTeaQuiz() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div className="p-5 rounded-2xl bg-surface-subtle border border-surface-border">
-                  <div className="text-xs font-extrabold text-emerald-700 uppercase mb-2">Recommended Tea Blend</div>
-                  <ul className="text-xs text-[#09090B] space-y-1.5 font-bold mb-3">
+                  <div className="text-xs font-extrabold text-orange-600 uppercase mb-2">Recommended Tea Blend</div>
+                  <ul className="text-xs text-primary-DEFAULT space-y-1.5 font-bold mb-3">
                     {result.ingredients.map((ing, idx) => (
                       <li key={idx} className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
                         {ing}
                       </li>
                     ))}
@@ -278,22 +260,19 @@ export default function FindMyTeaQuiz() {
                   </div>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-emerald-50 border border-emerald-200">
-                  <div className="text-xs font-extrabold text-emerald-800 uppercase mb-2">Daily Ritual Guide</div>
-                  <p className="text-xs text-[#09090B] leading-relaxed font-bold mb-2">
+                <div className="p-5 rounded-2xl bg-orange-50 border border-orange-200">
+                  <div className="text-xs font-extrabold text-orange-800 uppercase mb-2">Daily Ritual Guide</div>
+                  <p className="text-xs text-primary-DEFAULT leading-relaxed font-bold">
                     "{result.ritualTip}"
                   </p>
-                  <div className="text-xs font-extrabold text-amber-900 bg-white p-2.5 rounded-xl border border-amber-200 shadow-sm">
-                    💡 Lifestyle Tip: {result.lifestyleTip}
-                  </div>
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-emerald-600 text-white flex items-center justify-between gap-4 shadow-glow-green">
+              <div className="p-4 rounded-2xl bg-orange-500 text-white flex items-center justify-between gap-4 shadow-glow-orange">
                 <div className="text-xs font-extrabold">이 진단 결과를 이메일로 받아보시겠어요?</div>
                 <a
                   href="#newsletter"
-                  className="px-5 py-2.5 rounded-full bg-white text-slate-950 font-extrabold text-xs hover:bg-orange-500 hover:text-white transition-colors"
+                  className="px-5 py-2.5 rounded-full bg-white text-orange-600 font-extrabold text-xs hover:bg-orange-50 transition-colors"
                 >
                   구독하고 저장하기
                 </a>
