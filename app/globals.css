@@ -1,79 +1,33 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    background-color: #FFFFFF;
-    color: #09090B;
-    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+:root {
+  --background: #050508;
+  --foreground: #FFFFFF;
 }
 
-/* Glassmorphism Navigation & Cards */
-.glass-nav {
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(228, 228, 231, 0.7);
+html, body {
+  background-color: #050508;
+  color: #FFFFFF;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden !important;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
 }
 
-.glass-card {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
-  border: 1px solid #E4E4E7;
+.bg-radial-vignette {
+  background: radial-gradient(circle at center, transparent 40%, rgba(5, 5, 8, 0.9) 100%);
 }
 
-/* Dynamic Gradient Accent Themes */
-.theme-energy {
-  background: linear-gradient(135deg, #FFFBEB 0%, #FFFFFF 100%);
-  border-color: #FDE68A;
+@keyframes float-subtle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
 }
 
-.theme-focus {
-  background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%);
-  border-color: #BFDBFE;
-}
-
-.theme-balance {
-  background: linear-gradient(135deg, #FDF2F8 0%, #FFFFFF 100%);
-  border-color: #FBCFE8;
-}
-
-.theme-sleep {
-  background: linear-gradient(135deg, #F5F3FF 0%, #FFFFFF 100%);
-  border-color: #DDD6FE;
-}
-
-.theme-hydration {
-  background: linear-gradient(135deg, #ECFDF5 0%, #FFFFFF 100%);
-  border-color: #A7F3D0;
-}
-
-/* Custom Scrollbars */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #FFFFFF;
-}
-::-webkit-scrollbar-thumb {
-  background: #E4E4E7;
-  border-radius: 9999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #10B981;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+.animate-float {
+  animation: float-subtle 6s ease-in-out infinite;
 }

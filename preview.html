@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HEALTOX 힐톡스 | Ingredients Signature Gradient Platform</title>
+  <title>HEALTOX | COMING SOON</title>
   <link rel="icon" type="image/png" href="./public/favicon.png">
   
   <!-- Tailwind CSS CDN -->
@@ -11,137 +11,196 @@
   
   <!-- Pretendard Webfont -->
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
-  
-  <!-- Lucide Icons CDN -->
-  <script src="https://unpkg.com/lucide@latest"></script>
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            background: "#FFFFFF",
-            surface: {
-              DEFAULT: "#F9FAFB",
-              subtle: "#F4F4F5",
-              border: "#E4E4E7",
-            },
-            primary: {
-              DEFAULT: "#09090B",
-              muted: "#3F3F46",
-              subtle: "#71717A",
-            },
-            emerald: {
-              500: "#10B981",
-              600: "#059669",
-            },
-            amber: {
-              400: "#FBBF24",
-              500: "#F59E0B",
-            },
-            orange: {
-              500: "#F97316",
-              600: "#EA580C",
-            }
-          },
-          fontFamily: {
-            sans: ["'Pretendard'", "-apple-system", "BlinkMacSystemFont", "system-ui", "sans-serif"],
-          }
-        }
-      }
-    }
-  </script>
   <style>
-    body {
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden !important;
+      background-color: #050508;
+      color: #FFFFFF;
       font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-      background-color: #FFFFFF;
-      color: #09090B;
+      user-select: none;
     }
-    .glass-nav {
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(228, 228, 231, 0.7);
+    .bg-radial-vignette {
+      background: radial-gradient(circle at center, transparent 40%, rgba(5, 5, 8, 0.9) 100%);
+    }
+    @keyframes fadeBlurIn {
+      0% { opacity: 0; transform: translateY(30px) scale(0.96); filter: blur(12px); }
+      100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0px); }
+    }
+    @keyframes fadeBlurInSub {
+      0% { opacity: 0; transform: translateY(15px); filter: blur(8px); }
+      100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+    }
+    @keyframes subtleFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    .animate-logo {
+      animation: fadeBlurIn 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    }
+    .animate-sub {
+      animation: fadeBlurInSub 1.4s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards;
+    }
+    .floating-text {
+      animation: subtleFloat 6s ease-in-out infinite;
     }
   </style>
 </head>
-<body class="antialiased bg-white text-[#09090B]">
+<body class="antialiased bg-[#050508] text-white flex items-center justify-center relative overflow-hidden">
 
-  <!-- Sticky Navbar -->
-  <header class="fixed top-0 left-0 right-0 z-50 glass-nav py-4">
-    <div class="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-2.5 font-extrabold text-xl tracking-tight text-[#09090B]">
-        <span class="w-8 h-8 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs">✨</span>
-        HEALTOX<span class="text-orange-500">.</span>
-      </a>
-      <nav class="hidden md:flex items-center gap-7 text-xs font-bold text-primary-muted">
-        <a href="#find-my-tea" class="hover:text-[#09090B] transition-colors">Find My Tea</a>
-        <a href="#rituals" class="hover:text-[#09090B] transition-colors">Daily Rituals</a>
-        <a href="#ingredient-explorer" class="hover:text-[#09090B] transition-colors">Ingredients</a>
-      </nav>
-      <div class="flex items-center gap-3">
-        <a href="#find-my-tea" class="px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-orange-500 text-white hover:bg-orange-600 transition-colors shadow-sm">
-          Start Ritual
-        </a>
-      </div>
+  <!-- Interactive Canvas Background -->
+  <canvas id="teaser-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+  <!-- Vignette Overlay -->
+  <div class="absolute inset-0 z-10 bg-radial-vignette pointer-events-none opacity-40"></div>
+
+  <!-- Centered Content -->
+  <div class="relative z-20 flex flex-col items-center justify-center text-center px-6 pointer-events-none">
+    
+    <div class="opacity-0 animate-logo">
+      <h1 class="floating-text text-6xl sm:text-9xl lg:text-[140px] font-black tracking-[0.22em] sm:tracking-[0.32em] text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-white/60 drop-shadow-[0_10px_35px_rgba(255,255,255,0.25)] uppercase leading-none pl-[0.22em] sm:pl-[0.32em]">
+        HEALTOX
+      </h1>
     </div>
-  </header>
 
-  <!-- Hero Section -->
-  <section class="pt-36 pb-24 bg-gradient-to-br from-amber-400 via-orange-500 to-emerald-500 text-white min-h-screen flex flex-col justify-center relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10">
-      
-      <div className="mb-10 p-2 rounded-2xl bg-white/10 backdrop-blur-2xl border border-white/30 max-w-lg mx-auto flex items-center justify-between gap-2 shadow-2xl">
-        <span class="text-xs font-extrabold text-white/90 px-3 shrink-0">오늘의 스위치:</span>
-        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-          <span class="px-4 py-2 rounded-xl bg-white text-orange-600 text-xs font-extrabold shadow-lg">⚡ Energy</span>
-          <span class="px-4 py-2 rounded-xl bg-white/10 text-white text-xs font-extrabold">💧 Hydration</span>
-          <span class="px-4 py-2 rounded-xl bg-white/10 text-white text-xs font-extrabold">🍊 Women's Balance</span>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-        <div class="lg:col-span-7">
-          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-orange-600 text-xs font-extrabold uppercase tracking-wider mb-6">
-            <span>✨</span>
-            <span>Energy Protocol</span>
-          </div>
-          <h1 class="text-5xl sm:text-7xl lg:text-[84px] font-extrabold text-white tracking-tight leading-[0.98] mb-6">
-            Awaken Your Energy.<br>
-            <span class="text-yellow-200">Feel Energized.</span>
-          </h1>
-          <p class="text-xl text-white/95 max-w-lg mb-8 leading-relaxed font-medium">
-            보성 야생 박하와 녹차 잎으로 신진대사를 깨우세요. 0-카페인 미니멀 웰니스 음용수.
-          </p>
-          <div class="flex flex-wrap gap-4 mb-10">
-            <a href="#find-my-tea" class="px-9 py-4.5 rounded-full bg-white text-orange-600 font-extrabold text-base hover:bg-orange-50 transition-all shadow-2xl">
-              Start Your Ritual →
-            </a>
-            <a href="#ingredient-explorer" class="px-8 py-4.5 rounded-full bg-white/10 backdrop-blur-md border border-white/30 text-white font-extrabold text-sm hover:bg-white hover:text-slate-950 transition-all">
-              Explore Ingredients
-            </a>
-          </div>
-        </div>
-        <div class="lg:col-span-5 flex justify-center">
-          <div class="w-full max-w-md aspect-square rounded-3xl bg-white/10 backdrop-blur-2xl p-3 shadow-2xl flex items-center justify-center relative overflow-hidden border-2 border-white/40">
-            <img src="./public/images/healtox_hero_energetic.png" alt="HEALTOX Bottle" class="object-cover w-full h-full rounded-2xl">
-          </div>
-        </div>
-      </div>
-
+    <div class="opacity-0 animate-sub mt-6 sm:mt-10">
+      <span class="floating-text inline-block text-xs sm:text-base lg:text-lg font-extrabold uppercase tracking-[0.6em] sm:tracking-[0.8em] text-white/70 pl-[0.6em] sm:pl-[0.8em] drop-shadow-lg">
+        COMING SOON
+      </span>
     </div>
-  </section>
 
-  <!-- Live Notice Banner -->
-  <div class="bg-gradient-to-r from-amber-400 via-orange-500 to-emerald-500 text-white text-center py-4 px-6 font-extrabold text-sm shadow-xl">
-    🚀 Ingredients 배경색 히어로 시그니처 그래디언트(`from-amber-400 via-orange-500 to-emerald-500`) 100% 동일 전환 완료! 라이브 Vercel URL: 
-    <a href="https://healtox-landing-page-vq2l.vercel.app/" target="_blank" class="underline font-bold ml-1">
-      https://healtox-landing-page-vq2l.vercel.app/
-    </a>
   </div>
 
   <script>
-    lucide.createIcons();
+    const canvas = document.getElementById('teaser-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    let targetMouseX = width / 2;
+    let targetMouseY = height / 2;
+    let currentMouseX = width / 2;
+    let currentMouseY = height / 2;
+
+    window.addEventListener('mousemove', (e) => {
+      targetMouseX = e.clientX;
+      targetMouseY = e.clientY;
+    });
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const COLORS = [
+      "rgba(37, 99, 235, 0.45)",   // Electric Blue
+      "rgba(6, 182, 212, 0.45)",   // Aqua
+      "rgba(16, 185, 129, 0.4)",   // Emerald Green
+      "rgba(132, 204, 22, 0.35)",  // Fresh Lime
+      "rgba(139, 92, 246, 0.35)",  // Subtle Purple
+      "rgba(244, 63, 94, 0.3)",    // Soft Coral
+    ];
+
+    const blobs = [
+      { x: width * 0.3, y: height * 0.4, radius: Math.min(width, height) * 0.38, vx: 0.25, vy: 0.18, color: COLORS[0], phase: 0, speed: 0.008 },
+      { x: width * 0.7, y: height * 0.3, radius: Math.min(width, height) * 0.42, vx: -0.2, vy: 0.22, color: COLORS[1], phase: Math.PI / 3, speed: 0.006 },
+      { x: width * 0.5, y: height * 0.7, radius: Math.min(width, height) * 0.35, vx: 0.18, vy: -0.25, color: COLORS[2], phase: Math.PI / 2, speed: 0.009 },
+      { x: width * 0.2, y: height * 0.8, radius: Math.min(width, height) * 0.32, vx: 0.15, vy: -0.15, color: COLORS[3], phase: Math.PI, speed: 0.007 },
+      { x: width * 0.8, y: height * 0.75, radius: Math.min(width, height) * 0.36, vx: -0.22, vy: -0.18, color: COLORS[4], phase: Math.PI * 1.2, speed: 0.005 },
+      { x: width * 0.5, y: height * 0.25, radius: Math.min(width, height) * 0.3, vx: 0.1, vy: 0.15, color: COLORS[5], phase: Math.PI * 1.5, speed: 0.01 },
+    ];
+
+    const particles = [];
+    for (let i = 0; i < 55; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 2.5 + 0.8,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: -Math.random() * 0.4 - 0.15,
+        alpha: Math.random() * 0.6 + 0.2,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      });
+    }
+
+    let time = 0;
+    function render() {
+      time += 0.012;
+
+      currentMouseX += (targetMouseX - currentMouseX) * 0.03;
+      currentMouseY += (targetMouseY - currentMouseY) * 0.03;
+
+      const mouseOffsetX = (currentMouseX - width / 2) * 0.06;
+      const mouseOffsetY = (currentMouseY - height / 2) * 0.06;
+
+      ctx.fillStyle = "#050508";
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.globalCompositeOperation = "screen";
+
+      blobs.forEach((blob, idx) => {
+        blob.phase += blob.speed;
+        blob.x += Math.sin(blob.phase) * blob.vx * 1.5;
+        blob.y += Math.cos(blob.phase) * blob.vy * 1.5;
+
+        const depth = (idx + 1) * 0.15;
+        const drawX = blob.x + mouseOffsetX * depth;
+        const drawY = blob.y + mouseOffsetY * depth;
+        const pulseRadius = blob.radius + Math.sin(blob.phase * 1.5) * 25;
+
+        const grad = ctx.createRadialGradient(
+          drawX, drawY, pulseRadius * 0.05,
+          drawX, drawY, pulseRadius
+        );
+        grad.addColorStop(0, blob.color);
+        grad.addColorStop(0.5, blob.color.replace(/[\d\.]+\)$/, "0.18)"));
+        grad.addColorStop(1, "rgba(5, 5, 8, 0)");
+
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(drawX, drawY, pulseRadius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      ctx.globalCompositeOperation = "lighter";
+      ctx.lineWidth = 1.2;
+      for (let i = 0; i < 3; i++) {
+        ctx.strokeStyle = i % 2 === 0 ? "rgba(34, 211, 238, 0.07)" : "rgba(164, 244, 207, 0.06)";
+        ctx.beginPath();
+        const yOffset = height * 0.3 * (i + 1) + Math.sin(time + i) * 30;
+        ctx.moveTo(0, yOffset);
+
+        for (let x = 0; x <= width; x += 40) {
+          const waveY = Math.sin(x * 0.004 + time + i * 1.2) * 20 + Math.cos(x * 0.008 + time * 0.8) * 15;
+          ctx.lineTo(x, yOffset + waveY);
+        }
+        ctx.stroke();
+      }
+
+      ctx.globalCompositeOperation = "source-over";
+      particles.forEach((p) => {
+        p.x += p.vx + Math.sin(time + p.y * 0.01) * 0.15;
+        p.y += p.vy;
+
+        if (p.y < -10) {
+          p.y = height + 10;
+          p.x = Math.random() * width;
+        }
+
+        ctx.fillStyle = p.color.replace(/[\d\.]+\)$/, `${p.alpha})`);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      requestAnimationFrame(render);
+    }
+    render();
   </script>
 </body>
 </html>
