@@ -5,49 +5,67 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+  }
+
+  * {
+    border-color: #E4E4E7;
+  }
+
   body {
-    background-color: #F2F5F1;
-    color: #1B2A1C;
+    background-color: #FFFFFF;
+    color: #09090B;
     font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    selection-background-color: #10B981;
+    selection-color: #FFFFFF;
+  }
+
+  ::selection {
+    background-color: #10B981;
+    color: #FFFFFF;
   }
 }
 
-/* Lenis Smooth Scroll Configuration */
-html.lenis, html.lenis body {
-  height: auto;
+/* Glassmorphic backdrop utility */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(228, 228, 231, 0.7);
 }
 
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
+.glass-card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid #E4E4E7;
 }
 
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overflow: clip;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-.lenis.lenis-scrolling iframe {
-  pointer-events: none;
-}
-
-/* Premium custom scrollbar styling */
+/* Smooth scrollbar styling */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F2F5F1;
+  background: #FFFFFF;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D6DDD5;
-  border-radius: 4px;
-  border: 2px solid #F2F5F1;
+  background: #E4E4E7;
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #7D927B;
+  background: #10B981;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
