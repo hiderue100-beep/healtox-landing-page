@@ -103,35 +103,40 @@ export default function IngredientExplorer() {
   const [selectedIngredient, setSelectedIngredient] = useState<Ingredient | null>(null);
 
   return (
-    <section id="ingredient-explorer" className="py-24 bg-gradient-to-br from-orange-50 via-amber-50/60 to-yellow-50 text-primary-DEFAULT relative border-t border-orange-200/60">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+    <section id="ingredient-explorer" className="py-24 bg-gradient-to-br from-amber-400 via-orange-500 to-emerald-500 text-white relative overflow-hidden">
+      
+      {/* Background Ambient Spheres matching Hero/Newsletter */}
+      <div className="absolute top-0 right-0 w-[550px] h-[550px] bg-yellow-300/30 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+      <div className="absolute bottom-0 left-0 w-[450px] h-[450px] bg-emerald-300/30 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
+
+      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500 text-white text-xs font-extrabold uppercase tracking-wider mb-3 shadow-sm">
-              <Sparkles className="w-4 h-4 text-yellow-300" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-orange-600 text-xs font-extrabold uppercase tracking-wider mb-3 shadow-sm">
+              <Sparkles className="w-4 h-4 text-orange-500 fill-orange-500" />
               Korean Botanical Pharmacopoeia
             </div>
-            <h2 className="text-4xl sm:text-5xl font-extrabold text-[#09090B] tracking-tight leading-none">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-none drop-shadow-md">
               Ingredients
             </h2>
           </div>
-          <p className="text-sm text-primary-muted max-w-sm font-bold">
+          <p className="text-sm sm:text-base text-white/95 max-w-sm font-medium drop-shadow-sm">
             HEALTOX가 큐레이션하는 대한민국 청정 원료의 파이토케미컬 영양 성분과 효능을 탐색해보세요.
           </p>
         </div>
 
-        {/* Ingredients Grid */}
+        {/* Ingredients Grid Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
           {INGREDIENTS.map((ing) => (
             <div
               key={ing.id}
               onClick={() => setSelectedIngredient(ing)}
-              className="bg-white/95 backdrop-blur-xl rounded-3xl p-5 border border-orange-200 hover:border-orange-500 hover:scale-[1.02] transition-all duration-300 cursor-pointer group flex flex-col justify-between shadow-2xl"
+              className="bg-white/10 backdrop-blur-2xl rounded-3xl p-5 border-2 border-white/30 hover:border-white hover:bg-white/20 hover:scale-[1.02] transition-all duration-300 cursor-pointer group flex flex-col justify-between shadow-2xl"
             >
               <div>
-                <div className="relative w-full h-40 rounded-2xl overflow-hidden mb-4 shadow-subtle bg-slate-100">
+                <div className="relative w-full h-40 rounded-2xl overflow-hidden mb-4 shadow-md bg-black/20">
                   <Image
                     src={ing.image}
                     alt={ing.name}
@@ -139,25 +144,25 @@ export default function IngredientExplorer() {
                     className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     sizes="(max-width: 768px) 50vw, 20vw"
                   />
-                  <span className="absolute top-2 left-2 px-2.5 py-1 rounded-md bg-orange-500 text-white text-[10px] font-extrabold shadow-sm">
+                  <span className="absolute top-2 left-2 px-2.5 py-1 rounded-md bg-white text-orange-600 text-[10px] font-extrabold shadow">
                     {ing.category}
                   </span>
                 </div>
 
-                <div className="text-[10px] font-mono font-extrabold text-orange-600 mb-1">
+                <div className="text-[10px] font-mono font-extrabold text-yellow-200 mb-1">
                   {ing.hanja}
                 </div>
 
-                <h3 className="text-lg font-extrabold text-[#09090B] group-hover:text-orange-600 transition-colors mb-2">
+                <h3 className="text-xl font-extrabold text-white group-hover:text-yellow-200 transition-colors mb-2">
                   {ing.name}
                 </h3>
 
-                <p className="text-xs text-primary-muted line-clamp-2 leading-relaxed mb-4 font-semibold">
+                <p className="text-xs text-white/90 line-clamp-2 leading-relaxed mb-4 font-medium">
                   {ing.desc}
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-surface-border flex items-center justify-between text-xs text-orange-600 font-extrabold">
+              <div className="pt-3 border-t border-white/20 flex items-center justify-between text-xs text-yellow-200 font-extrabold">
                 <span>View Details</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
@@ -181,7 +186,7 @@ export default function IngredientExplorer() {
                 exit={{ x: "100%" }}
                 transition={{ type: "spring", damping: 25, stiffness: 200 }}
                 onClick={(e) => e.stopPropagation()}
-                className="w-full max-w-xl bg-white text-primary-DEFAULT h-full overflow-y-auto p-8 shadow-2xl border-l border-surface-border flex flex-col justify-between"
+                className="w-full max-w-xl bg-white text-[#09090B] h-full overflow-y-auto p-8 shadow-2xl border-l border-surface-border flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
@@ -190,7 +195,7 @@ export default function IngredientExplorer() {
                     </span>
                     <button
                       onClick={() => setSelectedIngredient(null)}
-                      className="p-2 rounded-full bg-surface-subtle hover:bg-surface-border text-primary-DEFAULT transition-colors"
+                      className="p-2 rounded-full bg-surface-subtle hover:bg-surface-border text-[#09090B] transition-colors"
                     >
                       <X className="w-5 h-5" />
                     </button>
@@ -221,7 +226,7 @@ export default function IngredientExplorer() {
                   </p>
 
                   <div className="space-y-4 mb-6">
-                    <div className="p-4 rounded-2xl bg-orange-50/70 border border-orange-200">
+                    <div className="p-4 rounded-2xl bg-orange-50/80 border border-orange-200">
                       <div className="text-xs font-extrabold text-orange-800 uppercase mb-2">Key Bioactive Phytochemicals</div>
                       <div className="flex flex-wrap gap-2">
                         {selectedIngredient.phytochemicals.map((p, idx) => (
