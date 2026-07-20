@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Leaf, MapPin, Clock, ArrowRight, X, BookOpen, ShieldCheck, Check } from "lucide-react";
+import { Sparkles, MapPin, Clock, ArrowRight, X, Check } from "lucide-react";
 
 interface Ingredient {
   id: string;
@@ -109,35 +109,35 @@ export default function IngredientExplorer() {
   const [selectedIngredient, setSelectedIngredient] = useState<Ingredient | null>(null);
 
   return (
-    <section id="ingredient-explorer" className="py-28 bg-white border-t border-surface-border relative">
+    <section id="ingredient-explorer" className="py-24 bg-gradient-to-br from-emerald-950 via-slate-900 to-teal-950 text-white relative border-t border-emerald-900/50">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-4 shadow-sm">
-              <Sparkles className="w-4 h-4 text-emerald-600" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-extrabold uppercase tracking-wider mb-3">
+              <Sparkles className="w-4 h-4 text-emerald-400" />
               Korean Botanical Pharmacopoeia
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary-DEFAULT tracking-tight leading-tight">
+            <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-none">
               Ingredient Explorer (원료 도감)
             </h2>
           </div>
-          <p className="text-base text-primary-muted max-w-md">
-            HEALTOX가 큐레이션하는 대한민국 청정 원료의 파이토케미컬 영양 성분과 효능, 원산지를 탐색해보세요.
+          <p className="text-sm text-emerald-100/80 max-w-sm font-medium">
+            HEALTOX가 큐레이션하는 대한민국 청정 원료의 파이토케미컬 영양 성분과 효능을 탐색해보세요.
           </p>
         </div>
 
         {/* Ingredients Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
           {INGREDIENTS.map((ing) => (
             <div
               key={ing.id}
               onClick={() => setSelectedIngredient(ing)}
-              className="glass-card rounded-2xl p-5 bg-white border border-surface-border hover:border-emerald-300 hover:shadow-elevated transition-all duration-300 cursor-pointer group flex flex-col justify-between"
+              className="bg-white/10 backdrop-blur-xl rounded-3xl p-5 border border-white/20 hover:border-emerald-400 hover:scale-[1.02] transition-all duration-300 cursor-pointer group flex flex-col justify-between shadow-2xl"
             >
               <div>
-                <div className="relative w-full h-36 rounded-xl overflow-hidden mb-4 shadow-subtle bg-surface-subtle">
+                <div className="relative w-full h-40 rounded-2xl overflow-hidden mb-4 shadow-subtle bg-black/20">
                   <Image
                     src={ing.image}
                     alt={ing.name}
@@ -145,25 +145,25 @@ export default function IngredientExplorer() {
                     className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     sizes="(max-width: 768px) 50vw, 20vw"
                   />
-                  <span className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-white/90 text-emerald-800 text-[10px] font-extrabold">
+                  <span className="absolute top-2 left-2 px-2.5 py-1 rounded-md bg-emerald-500 text-slate-950 text-[10px] font-extrabold shadow">
                     {ing.category}
                   </span>
                 </div>
 
-                <div className="text-[10px] font-mono font-bold text-primary-subtle mb-1">
+                <div className="text-[10px] font-mono font-bold text-emerald-300 mb-1">
                   {ing.hanja}
                 </div>
 
-                <h3 className="text-base font-extrabold text-primary-DEFAULT group-hover:text-emerald-600 transition-colors mb-2">
+                <h3 className="text-lg font-extrabold text-white group-hover:text-emerald-300 transition-colors mb-2">
                   {ing.name}
                 </h3>
 
-                <p className="text-xs text-primary-muted line-clamp-2 leading-relaxed mb-4">
+                <p className="text-xs text-white/70 line-clamp-2 leading-relaxed mb-4 font-medium">
                   {ing.desc}
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-surface-border flex items-center justify-between text-xs text-emerald-700 font-bold">
+              <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-emerald-300 font-extrabold">
                 <span>원료 도감 열기</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
@@ -178,7 +178,7 @@ export default function IngredientExplorer() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md flex justify-end"
+              className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex justify-end"
               onClick={() => setSelectedIngredient(null)}
             >
               <motion.div
@@ -187,22 +187,22 @@ export default function IngredientExplorer() {
                 exit={{ x: "100%" }}
                 transition={{ type: "spring", damping: 25, stiffness: 200 }}
                 onClick={(e) => e.stopPropagation()}
-                className="w-full max-w-xl bg-white h-full overflow-y-auto p-8 shadow-2xl border-l border-surface-border flex flex-col justify-between"
+                className="w-full max-w-xl bg-slate-900 text-white h-full overflow-y-auto p-8 shadow-2xl border-l border-white/20 flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase">
+                    <span className="px-3 py-1 rounded-full bg-emerald-400 text-slate-950 text-xs font-extrabold uppercase">
                       {selectedIngredient.category}
                     </span>
                     <button
                       onClick={() => setSelectedIngredient(null)}
-                      className="p-2 rounded-full bg-surface-subtle hover:bg-surface-border text-primary-DEFAULT transition-colors"
+                      className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
                     >
                       <X className="w-5 h-5" />
                     </button>
                   </div>
 
-                  <div className="relative w-full h-52 rounded-2xl overflow-hidden mb-6 shadow-subtle border border-surface-border">
+                  <div className="relative w-full h-56 rounded-2xl overflow-hidden mb-6 shadow-2xl border border-white/20">
                     <Image
                       src={selectedIngredient.image}
                       alt={selectedIngredient.name}
@@ -212,39 +212,38 @@ export default function IngredientExplorer() {
                   </div>
 
                   <div className="mb-6">
-                    <div className="text-xs font-mono font-bold text-emerald-600 mb-1">{selectedIngredient.hanja}</div>
-                    <h2 className="text-3xl font-extrabold text-primary-DEFAULT mb-2">
+                    <div className="text-xs font-mono font-bold text-emerald-400 mb-1">{selectedIngredient.hanja}</div>
+                    <h2 className="text-3xl font-extrabold text-white mb-2">
                       {selectedIngredient.name}
                     </h2>
-                    <div className="flex items-center gap-2 text-xs text-primary-subtle font-medium">
-                      <MapPin className="w-3.5 h-3.5 text-emerald-600" />
+                    <div className="flex items-center gap-2 text-xs text-emerald-200 font-medium">
+                      <MapPin className="w-3.5 h-3.5 text-emerald-400" />
                       <span>{selectedIngredient.origin}</span>
                     </div>
                   </div>
 
-                  <p className="text-sm text-primary-muted leading-relaxed mb-6">
+                  <p className="text-sm text-white/80 leading-relaxed mb-6 font-medium">
                     {selectedIngredient.desc}
                   </p>
 
-                  {/* Phytochemicals & Benefits */}
                   <div className="space-y-4 mb-6">
-                    <div className="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200">
-                      <div className="text-xs font-extrabold text-emerald-800 uppercase mb-2">주요 파이토케미컬 성분</div>
+                    <div className="p-4 rounded-2xl bg-white/10 border border-white/20">
+                      <div className="text-xs font-extrabold text-emerald-300 uppercase mb-2">주요 파이토케미컬 성분</div>
                       <div className="flex flex-wrap gap-2">
                         {selectedIngredient.phytochemicals.map((p, idx) => (
-                          <span key={idx} className="px-2.5 py-1 rounded-md bg-white border border-emerald-300 text-xs font-bold text-emerald-900">
+                          <span key={idx} className="px-3 py-1 rounded-md bg-emerald-500 text-slate-950 text-xs font-extrabold">
                             {p}
                           </span>
                         ))}
                       </div>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-surface-subtle border border-surface-border">
-                      <div className="text-xs font-extrabold text-primary-subtle uppercase mb-2">핵심 웰니스 효능</div>
-                      <ul className="text-xs text-primary-DEFAULT space-y-1.5">
+                    <div className="p-4 rounded-2xl bg-white/10 border border-white/20">
+                      <div className="text-xs font-extrabold text-white/70 uppercase mb-2">핵심 웰니스 효능</div>
+                      <ul className="text-xs text-white space-y-1.5 font-medium">
                         {selectedIngredient.benefits.map((b, idx) => (
-                          <li key={idx} className="flex items-center gap-2 font-medium">
-                            <Check className="w-3.5 h-3.5 text-emerald-600" />
+                          <li key={idx} className="flex items-center gap-2">
+                            <Check className="w-3.5 h-3.5 text-emerald-400" />
                             {b}
                           </li>
                         ))}
@@ -252,29 +251,27 @@ export default function IngredientExplorer() {
                     </div>
                   </div>
 
-                  {/* Tasting & Best Time */}
                   <div className="grid grid-cols-2 gap-4 mb-8">
-                    <div className="p-4 rounded-xl bg-white border border-surface-border">
-                      <div className="text-[10px] font-bold text-primary-subtle uppercase">테이스팅 노트</div>
-                      <div className="text-xs font-bold text-primary-DEFAULT mt-1">{selectedIngredient.flavor}</div>
+                    <div className="p-4 rounded-2xl bg-white/10 border border-white/20">
+                      <div className="text-[10px] font-bold text-white/60 uppercase">테이스팅 노트</div>
+                      <div className="text-xs font-extrabold text-white mt-1">{selectedIngredient.flavor}</div>
                     </div>
-                    <div className="p-4 rounded-xl bg-white border border-surface-border">
-                      <div className="text-[10px] font-bold text-primary-subtle uppercase">최적 음용 시간</div>
-                      <div className="text-xs font-bold text-primary-DEFAULT mt-1 flex items-center gap-1">
-                        <Clock className="w-3 h-3 text-emerald-600" />
+                    <div className="p-4 rounded-2xl bg-white/10 border border-white/20">
+                      <div className="text-[10px] font-bold text-white/60 uppercase">최적 음용 시간</div>
+                      <div className="text-xs font-extrabold text-white mt-1 flex items-center gap-1">
+                        <Clock className="w-3 h-3 text-emerald-400" />
                         {selectedIngredient.bestTime}
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Related Tea & Journal Footer */}
-                <div className="pt-6 border-t border-surface-border space-y-3">
-                  <div className="text-xs font-bold text-primary-subtle uppercase">함유된 추천 수분 블렌드</div>
+                <div className="pt-6 border-t border-white/20 space-y-3">
+                  <div className="text-xs font-bold text-white/60 uppercase">함유된 추천 수분 블렌드</div>
                   <a
                     href="#find-my-tea"
                     onClick={() => setSelectedIngredient(null)}
-                    className="p-3.5 rounded-xl bg-primary-DEFAULT text-white text-xs font-bold flex items-center justify-between hover:bg-emerald-600 transition-colors"
+                    className="p-4 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-xs flex items-center justify-between transition-colors shadow-glow-green"
                   >
                     <span>{selectedIngredient.relatedTea}</span>
                     <ArrowRight className="w-4 h-4" />
