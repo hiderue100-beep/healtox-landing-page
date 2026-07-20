@@ -39,7 +39,7 @@ export default function Footer() {
                 <a href="#rituals" className="hover:text-orange-600 transition-colors">Daily Rituals Protocol</a>
               </li>
               <li>
-                <a href="#ingredient-explorer" className="hover:text-orange-600 transition-colors">Botanical Pharmacopoeia (원료 도감)</a>
+                <a href="#ingredient-explorer" className="hover:text-orange-600 transition-colors">Ingredients</a>
               </li>
             </ul>
           </div>

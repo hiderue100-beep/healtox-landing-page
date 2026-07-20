@@ -44,7 +44,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen pt-32 pb-20 flex flex-col justify-between bg-gradient-to-br from-amber-400 via-orange-500 to-emerald-500 text-white overflow-hidden">
       
-      {/* Background Accent Spheres matching Newsletter section */}
+      {/* Background Accent Spheres */}
       <div className="absolute top-0 right-0 w-[550px] h-[550px] bg-yellow-300/30 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
       <div className="absolute bottom-0 left-0 w-[450px] h-[450px] bg-emerald-300/30 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
 
@@ -125,7 +125,7 @@ export default function Hero() {
                 href="#ingredient-explorer"
                 className="px-8 py-4.5 rounded-full bg-white/10 backdrop-blur-md border border-white/30 text-white font-extrabold text-sm tracking-wide hover:bg-white hover:text-slate-950 transition-all text-center"
               >
-                Explore Ingredients (원료 도감)
+                Explore Ingredients
               </a>
             </div>
 

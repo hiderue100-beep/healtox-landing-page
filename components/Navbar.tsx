@@ -9,7 +9,7 @@ import FavoritesDrawer from "./FavoritesDrawer";
 const NAV_ITEMS = [
   { label: "Find My Tea", href: "#find-my-tea" },
   { label: "Daily Rituals", href: "#rituals" },
-  { label: "원료 도감", href: "#ingredient-explorer" },
+  { label: "Ingredients", href: "#ingredient-explorer" },
 ];
 
 export default function Navbar() {
