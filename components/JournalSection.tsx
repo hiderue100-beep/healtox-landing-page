@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { BookOpen, Sparkles, Clock, ArrowRight, X, Share2, Tag } from "lucide-react";
+import { BookOpen, Sparkles, Clock, ArrowRight, X, Share2 } from "lucide-react";
 
 const CATEGORIES = [
   "All Stories",
@@ -21,6 +22,7 @@ const ARTICLES = [
     category: "Hydration",
     readTime: "4 min read",
     date: "2026.07.18",
+    image: "/images/healtox_hero_energetic.png",
     author: "Dr. Elena Vance (Head of Botanical Science)",
     excerpt: "자고 일어난 직후 300ml의 식물성 미온수가 뇌 혈류량과 세포 활력지수를 높이는 유기적 원리를 탐구합니다.",
     content: `
@@ -42,6 +44,7 @@ const ARTICLES = [
     category: "Women's Wellness",
     readTime: "5 min read",
     date: "2026.07.15",
+    image: "/images/healtox_citrus_bloom.png",
     author: "Minji Kang (Wellness Curator)",
     excerpt: "제주 동백꽃과 영천 만년 대추가 호르몬 밸런스와 하복부 체온 유지에 미치는 영향 분석.",
     content: `
@@ -62,8 +65,9 @@ const ARTICLES = [
     category: "Tea Science",
     readTime: "3 min read",
     date: "2026.07.10",
+    image: "/images/healtox_hydration_splash.png",
     author: "Dr. Elena Vance (Head of Botanical Science)",
-    excerpt: "오후 3시 오후 커피 의존에서 벗어나 순수한 식물 파이토케미컬로 에너지를 리셋하는 방법.",
+    excerpt: "오후 3시 커피 의존에서 벗어나 순수한 식물 파이토케미컬로 에너지를 리셋하는 방법.",
     content: `
       오후에 마시는 고농도 카페인은 수면 아키텍처를 파괴하고 야간 멜라토닌 분비를 방해합니다.
       대신 보성 어린 녹차 잎의 테아닌과 상주 감잎의 비타민 C를 저온 수분 추출하여 마시면
@@ -76,6 +80,7 @@ const ARTICLES = [
     category: "Sleep",
     readTime: "4 min read",
     date: "2026.07.05",
+    image: "/images/healtox_botanical_pack.png",
     author: "Soyoon Park (Sleep Specialist)",
     excerpt: "취침 전 블루라이트를 차단하고 따뜻한 하동 야생 차 한 잔으로 심신을 이완시키는 나이트 리추얼.",
     content: `
@@ -90,6 +95,7 @@ const ARTICLES = [
     category: "Nutrition",
     readTime: "6 min read",
     date: "2026.06.28",
+    image: "/images/healtox_ritual_lifestyle.png",
     author: "Minji Kang (Wellness Curator)",
     excerpt: "한국 전통 재료인 옥수수수염과 감잎이 체내 칼륨 밸런스를 조절하는 메커니즘.",
     content: `
@@ -104,6 +110,7 @@ const ARTICLES = [
     category: "Botanical Story",
     readTime: "5 min read",
     date: "2026.06.20",
+    image: "/images/healtox_boseong_farm.png",
     author: "HEALTOX Editorial Team",
     excerpt: "100년의 세월을 견뎌낸 야생 차나무를 손으로 직접 채취하는 하동 농부들의 이야기.",
     content: `
@@ -129,11 +136,11 @@ export default function JournalSection() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-surface-border text-botanical-600 text-xs font-bold uppercase tracking-wider mb-4 shadow-subtle">
-              <Sparkles className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-surface-border text-emerald-800 text-xs font-bold uppercase tracking-wider mb-4 shadow-subtle">
+              <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
               HEALTOX Editorial & Research
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary-DEFAULT tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary-DEFAULT tracking-tight leading-tight">
               Journal & Botanical Insights
             </h2>
           </div>
@@ -148,9 +155,9 @@ export default function JournalSection() {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
                 selectedCategory === cat
-                  ? "bg-primary-DEFAULT text-white shadow-subtle"
+                  ? "bg-emerald-600 text-white shadow-subtle"
                   : "bg-white text-primary-muted border border-surface-border hover:bg-surface-subtle"
               }`}
             >
@@ -165,34 +172,48 @@ export default function JournalSection() {
             <div
               key={article.id}
               onClick={() => setActiveArticle(article)}
-              className="glass-card rounded-2xl p-6 bg-white border border-surface-border hover:shadow-elevated transition-all duration-300 flex flex-col justify-between cursor-pointer group"
+              className="glass-card rounded-2xl overflow-hidden bg-white border border-surface-border hover:shadow-elevated transition-all duration-300 flex flex-col justify-between cursor-pointer group"
             >
-              <div>
-                <div className="flex items-center justify-between gap-2 mb-4">
-                  <span className="px-2.5 py-1 rounded-full bg-botanical-100 text-botanical-700 text-[10px] font-bold uppercase tracking-wider">
-                    {article.category}
-                  </span>
-                  <span className="text-xs text-primary-subtle font-mono flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
-                    {article.readTime}
-                  </span>
+              {/* Card Thumbnail Image */}
+              <div className="relative w-full h-48 overflow-hidden bg-surface-subtle">
+                <Image
+                  src={article.image}
+                  alt={article.title}
+                  fill
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-emerald-800 text-[10px] font-extrabold uppercase">
+                  {article.category}
                 </div>
-
-                <h3 className="text-lg font-bold text-primary-DEFAULT group-hover:text-botanical-600 transition-colors leading-snug mb-3">
-                  {article.title}
-                </h3>
-
-                <p className="text-xs text-primary-muted leading-relaxed line-clamp-3 mb-6">
-                  {article.excerpt}
-                </p>
               </div>
 
-              <div className="pt-4 border-t border-surface-border flex items-center justify-between text-xs text-primary-subtle">
-                <span>{article.date}</span>
-                <span className="font-semibold text-primary-DEFAULT group-hover:text-botanical-600 flex items-center gap-1">
-                  Read Article
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </span>
+              <div className="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-3 text-xs text-primary-subtle font-mono">
+                    <span>{article.date}</span>
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-3 h-3 text-emerald-600" />
+                      {article.readTime}
+                    </span>
+                  </div>
+
+                  <h3 className="text-base font-bold text-primary-DEFAULT group-hover:text-emerald-600 transition-colors leading-snug mb-3 line-clamp-2">
+                    {article.title}
+                  </h3>
+
+                  <p className="text-xs text-primary-muted leading-relaxed line-clamp-2 mb-6">
+                    {article.excerpt}
+                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-surface-border flex items-center justify-between text-xs text-primary-subtle">
+                  <span>By {article.author.split(" ")[0]}</span>
+                  <span className="font-bold text-emerald-600 group-hover:text-emerald-700 flex items-center gap-1">
+                    Read Article
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </div>
               </div>
             </div>
           ))}
@@ -205,7 +226,7 @@ export default function JournalSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 bg-black/50 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
+              className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
               onClick={() => setActiveArticle(null)}
             >
               <motion.div
@@ -217,19 +238,28 @@ export default function JournalSection() {
               >
                 <button
                   onClick={() => setActiveArticle(null)}
-                  className="absolute top-6 right-6 p-2 rounded-full bg-surface-subtle hover:bg-surface-border text-primary-DEFAULT transition-colors"
+                  className="absolute top-6 right-6 p-2 rounded-full bg-surface-subtle hover:bg-surface-border text-primary-DEFAULT transition-colors z-10"
                 >
                   <X className="w-5 h-5" />
                 </button>
 
+                <div className="relative w-full h-56 rounded-2xl overflow-hidden mb-6 shadow-subtle">
+                  <Image
+                    src={activeArticle.image}
+                    alt={activeArticle.title}
+                    fill
+                    className="object-cover object-center"
+                  />
+                </div>
+
                 <div className="mb-6">
-                  <span className="px-3 py-1 rounded-full bg-botanical-100 text-botanical-700 text-xs font-bold uppercase mb-3 inline-block">
+                  <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase mb-3 inline-block">
                     {activeArticle.category}
                   </span>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-primary-DEFAULT mb-3 leading-snug">
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-primary-DEFAULT mb-3 leading-snug">
                     {activeArticle.title}
                   </h2>
-                  <div className="flex items-center gap-4 text-xs text-primary-subtle">
+                  <div className="flex items-center gap-4 text-xs text-primary-subtle font-medium">
                     <span>{activeArticle.author}</span>
                     <span>•</span>
                     <span>{activeArticle.date}</span>
@@ -254,9 +284,9 @@ export default function JournalSection() {
                         alert("링크가 복사되었습니다.");
                       }
                     }}
-                    className="px-4 py-2 rounded-full border border-surface-border text-xs font-semibold text-primary-DEFAULT hover:bg-surface-subtle transition-colors flex items-center gap-1.5"
+                    className="px-4 py-2 rounded-full border border-surface-border text-xs font-bold text-primary-DEFAULT hover:bg-surface-subtle transition-colors flex items-center gap-1.5"
                   >
-                    <Share2 className="w-3.5 h-3.5" />
+                    <Share2 className="w-3.5 h-3.5 text-emerald-600" />
                     Share Article
                   </button>
                 </div>

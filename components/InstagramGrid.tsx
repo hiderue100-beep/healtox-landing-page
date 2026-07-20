@@ -6,31 +6,31 @@ import { Instagram, Heart, MessageCircle, ExternalLink } from "lucide-react";
 const INSTA_POSTS = [
   {
     id: 1,
-    image: "/images/healtox_botanical_hero.png",
-    likes: "1.2k",
-    comments: "84",
-    caption: "Your Morning Hydration Ritual. #HEALTOX #BotanicalHydration",
+    image: "/images/healtox_hero_energetic.png",
+    likes: "2.4k",
+    comments: "142",
+    caption: "Dynamic Botanical Water Splash. Pure Hydration, 0 Sugar 0 Caffeine. 💧✨ #HEALTOX",
   },
   {
     id: 2,
-    image: "/images/healtox_hero_tea.png",
-    likes: "940",
-    comments: "52",
-    caption: "Clean Sourced from Boseong Mint Farms. 0 Sugar 0 Caffeine. 🌿",
+    image: "/images/healtox_hydration_splash.png",
+    likes: "1.8k",
+    comments: "98",
+    caption: "High Speed Hydration Burst with Fresh Boseong Mint & Citrus. 🌿🍋 #DailyRitual",
   },
   {
     id: 3,
-    image: "/images/healtox_botanical_pack.png",
-    likes: "2.1k",
-    comments: "140",
-    caption: "Bespoke Packaging for Modern Wellness Enthusiasts. #DailyRitual",
+    image: "/images/healtox_ritual_lifestyle.png",
+    likes: "3.1k",
+    comments: "210",
+    caption: "Awaken with Active Botanical Hydration after Morning Stretch. ☀️ #WomensWellness",
   },
   {
     id: 4,
-    image: "/images/healtox_lifestyle_tea.png",
-    likes: "1.5k",
-    comments: "98",
-    caption: "Hydrate Better. Feel Different. Daily Rituals for Women's Balance.",
+    image: "/images/healtox_citrus_bloom.png",
+    likes: "2.7k",
+    comments: "165",
+    caption: "Jeju Citrus & Camellia Petal Hydration Blend for Women's Bloom. 🌺🍊 #InnerGlow",
   },
 ];
 
@@ -42,22 +42,22 @@ export default function InstagramGrid() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-12">
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-botanical-600 mb-2">
-              <Instagram className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 mb-2">
+              <Instagram className="w-4 h-4 text-emerald-600" />
               @healtox.ritual
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-primary-DEFAULT tracking-tight">
-              Community & Botanical Mood
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-primary-DEFAULT tracking-tight">
+              Community & Energetic Botanical Mood
             </h2>
           </div>
           <a
             href="https://instagram.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-surface-border text-xs font-semibold text-primary-DEFAULT hover:bg-surface-subtle transition-colors self-start sm:self-auto"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-surface-border text-xs font-bold text-primary-DEFAULT hover:bg-surface-subtle transition-colors self-start sm:self-auto"
           >
             Follow on Instagram
-            <ExternalLink className="w-3.5 h-3.5" />
+            <ExternalLink className="w-3.5 h-3.5 text-emerald-600" />
           </a>
         </div>
 
@@ -80,8 +80,8 @@ export default function InstagramGrid() {
               />
 
               {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-primary-DEFAULT/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-between text-white">
-                <div className="flex items-center justify-between text-xs font-semibold">
+              <div className="absolute inset-0 bg-primary-DEFAULT/75 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-between text-white">
+                <div className="flex items-center justify-between text-xs font-bold">
                   <span className="flex items-center gap-1">
                     <Heart className="w-4 h-4 fill-white" />
                     {post.likes}
@@ -91,7 +91,7 @@ export default function InstagramGrid() {
                     {post.comments}
                   </span>
                 </div>
-                <p className="text-xs text-white/90 line-clamp-2 leading-relaxed font-medium">
+                <p className="text-xs text-white/90 line-clamp-3 leading-relaxed font-medium">
                   {post.caption}
                 </p>
               </div>
