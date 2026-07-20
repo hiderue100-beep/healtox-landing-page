@@ -21,7 +21,7 @@ interface Particle {
   color: string;
 }
 
-export default function TeaserCanvas() {
+export default function DeliciousWaterCanvas() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -35,21 +35,20 @@ export default function TeaserCanvas() {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Mouse Water Ripple Trigger
     let mouseX = width / 2;
     let mouseY = height / 2;
 
     const handleMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      if (Math.random() < 0.15) {
+      if (Math.random() < 0.2) {
         ripples.push({
           x: mouseX,
           y: mouseY,
-          radius: 5,
-          maxRadius: Math.random() * 60 + 40,
-          alpha: 0.6,
-          speed: 1.5,
+          radius: 4,
+          maxRadius: Math.random() * 70 + 40,
+          alpha: 0.7,
+          speed: 1.6,
         });
       }
     };
@@ -65,37 +64,33 @@ export default function TeaserCanvas() {
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Crystal-Clear Blue & Aqua Water Palette
     const WATER_COLORS = [
-      "rgba(14, 165, 233, 0.35)",  // Deep Cyan Sky Blue
-      "rgba(6, 182, 212, 0.4)",    // Aqua Turquoise
-      "rgba(56, 189, 248, 0.3)",   // Ice Blue
-      "rgba(16, 185, 129, 0.25)",  // Mint Water Accent
-      "rgba(255, 255, 255, 0.5)",  // White Water Sparkle
+      "rgba(14, 165, 233, 0.4)",  // Deep Cyan Sky Blue
+      "rgba(6, 182, 212, 0.45)",  // Aqua Turquoise
+      "rgba(56, 189, 248, 0.35)", // Ice Blue
+      "rgba(16, 185, 129, 0.3)",  // Mint Water Accent
+      "rgba(255, 255, 255, 0.6)", // White Water Sparkle
     ];
 
-    // Water Ripples Array
     const ripples: WaterDrop[] = [];
 
-    // Initialize Random Spontaneous Water Ripples
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
       ripples.push({
         x: Math.random() * width,
         y: Math.random() * height,
         radius: Math.random() * 40,
-        maxRadius: Math.random() * 80 + 50,
+        maxRadius: Math.random() * 90 + 50,
         alpha: Math.random() * 0.5 + 0.2,
         speed: Math.random() * 1.2 + 0.8,
       });
     }
 
-    // Initialize Floating Micro Water Droplets & Mint Sparkles
     const particles: Particle[] = [];
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 60; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        size: Math.random() * 3 + 1,
+        size: Math.random() * 3.5 + 1,
         vx: (Math.random() - 0.5) * 0.4,
         vy: -Math.random() * 0.5 - 0.2,
         alpha: Math.random() * 0.6 + 0.3,
@@ -108,21 +103,20 @@ export default function TeaserCanvas() {
     const render = () => {
       time += 0.015;
 
-      // Base Deep Aqua & Sapphire Water Gradient Background
       const bgGrad = ctx.createLinearGradient(0, 0, width, height);
-      bgGrad.addColorStop(0, "#0284C7");    // Vibrant Blue
-      bgGrad.addColorStop(0.5, "#06B6D4");  // Aqua Teal
-      bgGrad.addColorStop(1, "#0D9488");    // Fresh Deep Mint
+      bgGrad.addColorStop(0, "#0284C7");    // Deep Sky Blue
+      bgGrad.addColorStop(0.5, "#06B6D4");  // Aqua Cyan
+      bgGrad.addColorStop(1, "#0D9488");    // Mint Teal
 
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, width, height);
 
-      // Render Caustics Light Waves (Refraction)
+      // Light Caustics Refraction
       ctx.globalCompositeOperation = "lighter";
       ctx.lineWidth = 2;
 
       for (let i = 0; i < 4; i++) {
-        ctx.strokeStyle = `rgba(255, 255, 255, ${0.12 - i * 0.02})`;
+        ctx.strokeStyle = `rgba(255, 255, 255, ${0.14 - i * 0.02})`;
         ctx.beginPath();
         const yOffset = height * (0.2 + i * 0.22) + Math.sin(time + i) * 25;
         ctx.moveTo(0, yOffset);
@@ -134,7 +128,7 @@ export default function TeaserCanvas() {
         ctx.stroke();
       }
 
-      // Render Water Ripples
+      // Water Ripples
       for (let i = ripples.length - 1; i >= 0; i--) {
         const rip = ripples[i];
         if (!prefersReducedMotion) {
@@ -144,14 +138,13 @@ export default function TeaserCanvas() {
 
         if (rip.alpha <= 0 || rip.radius >= rip.maxRadius) {
           ripples.splice(i, 1);
-          // Spawn new spontaneous ripple
           if (ripples.length < 6 && !prefersReducedMotion) {
             ripples.push({
               x: Math.random() * width,
               y: Math.random() * height,
               radius: 2,
               maxRadius: Math.random() * 80 + 40,
-              alpha: 0.5,
+              alpha: 0.6,
               speed: Math.random() * 1.2 + 0.8,
             });
           }
@@ -159,13 +152,13 @@ export default function TeaserCanvas() {
         }
 
         ctx.strokeStyle = `rgba(255, 255, 255, ${rip.alpha})`;
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 2.5;
         ctx.beginPath();
         ctx.arc(rip.x, rip.y, rip.radius, 0, Math.PI * 2);
         ctx.stroke();
       }
 
-      // Render Floating Micro Water Droplets
+      // Micro Particles
       ctx.globalCompositeOperation = "source-over";
       particles.forEach((p) => {
         if (!prefersReducedMotion) {

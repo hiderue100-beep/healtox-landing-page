@@ -3,8 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Sparkles, ChevronDown, Droplets } from "lucide-react";
-import TeaserCanvas from "./TeaserCanvas";
+import { ArrowRight, Droplets, ChevronDown } from "lucide-react";
+import DeliciousWaterCanvas from "./DeliciousWaterCanvas";
 
 const CONDITIONS = [
   {
@@ -39,14 +39,14 @@ const CONDITIONS = [
   },
 ];
 
-export default function Hero() {
+export default function DeliciousWaterHero() {
   const [selectedCondition, setSelectedCondition] = useState(CONDITIONS[0]);
 
   return (
     <section className="relative min-h-screen pt-32 pb-20 flex flex-col justify-between overflow-hidden text-white bg-slate-950">
       
       {/* Pristine Moving Water Canvas Background */}
-      <TeaserCanvas />
+      <DeliciousWaterCanvas />
 
       {/* Subtle Vignette Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/40 pointer-events-none z-10" />

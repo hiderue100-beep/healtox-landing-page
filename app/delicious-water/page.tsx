@@ -7,7 +7,7 @@ import IngredientExplorer from "@/components/IngredientExplorer";
 import InstagramGrid from "@/components/InstagramGrid";
 import Footer from "@/components/Footer";
 
-export default function Home() {
+export default function DeliciousWaterPage() {
   return (
     <main className="min-h-screen bg-white text-primary-DEFAULT overflow-x-hidden">
       <Navbar />
