@@ -6,6 +6,14 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://healtox-landing-page-vq2l.vercel.app"),
   title: "HEALTOX 힐톡스 | Modern Botanical Hydration & Wellness Ritual",
   description: "대한민국 청정 농가의 식물 원료를 현대적 라이프스타일에 맞게 큐레이션하는 보타니컬 웰니스 브랜드. 카페인과 인공 당류 없는 깨끗한 수분 리추얼을 경험하세요.",
+  icons: {
+    icon: [
+      { url: "/favicon.png", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
   keywords: [
     "HEALTOX",
     "힐톡스",
@@ -80,8 +88,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <link rel="icon" href="/favicon.png" sizes="any" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
       </head>
-      <body className="antialiased bg-white text-primary-DEFAULT font-sans selection:bg-botanical-500 selection:text-white">
+      <body className="antialiased bg-white text-primary-DEFAULT font-sans selection:bg-orange-500 selection:text-white">
         <SmoothScroll>
           {children}
         </SmoothScroll>

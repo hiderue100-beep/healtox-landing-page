@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Bright Orange Circle Background -->
+  <circle cx="256" cy="256" r="240" fill="#F97316" />
+  
+  <!-- Central White 4-Point Sparkle Star -->
+  <path d="M 256 120 C 256 185, 185 256, 120 256 C 185 256, 256 327, 256 392 C 256 327, 327 256, 392 256 C 327 256, 256 185, 256 120 Z" fill="#FFFFFF" />
+  
+  <!-- Top-Right Plus/Sparkle -->
+  <path d="M 345 160 L 355 160 L 355 150 L 365 150 L 365 160 L 375 160 L 375 170 L 365 170 L 365 180 L 355 180 L 355 170 L 345 170 Z" fill="#FFFFFF" />
+  
+  <!-- Bottom-Left Diamond Sparkle -->
+  <polygon points="170,335 180,345 170,355 160,345" fill="#FFFFFF" />
+</svg>
