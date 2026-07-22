@@ -115,9 +115,7 @@ export default function DeliciousWaterHero() {
               </motion.h1>
             </AnimatePresence>
 
-            <p className="text-lg sm:text-xl text-white/95 font-medium leading-relaxed max-w-lg mb-8 drop-shadow-sm">
-              {selectedCondition.subhead} 대한민국 100% 국산 식물 원료로 맹물 대신 매일 마시는 물이 즐거워집니다.
-            </p>
+
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-10">
               <a
@@ -128,12 +126,6 @@ export default function DeliciousWaterHero() {
                 <ArrowRight className="w-5 h-5" />
               </a>
 
-              <a
-                href="#ingredient-explorer"
-                className="px-8 py-4.5 rounded-full bg-white/10 backdrop-blur-md border border-white/30 text-white font-extrabold text-sm tracking-wide hover:bg-white hover:text-slate-950 transition-all text-center"
-              >
-                Explore Ingredients
-              </a>
             </div>
 
             <div className="pt-6 border-t border-white/25 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-extrabold text-white">
