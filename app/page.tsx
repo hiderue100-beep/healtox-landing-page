@@ -2,8 +2,8 @@ import Navbar from "@/components/Navbar";
 import DeliciousWaterHero from "@/components/DeliciousWaterHero";
 import FindMyTeaQuiz from "@/components/FindMyTeaQuiz";
 import HydrationTracker from "@/components/HydrationTracker";
-import DailyRitual from "@/components/DailyRitual";
-import IngredientExplorer from "@/components/IngredientExplorer";
+// import DailyRitual from "@/components/DailyRitual";
+// import IngredientExplorer from "@/components/IngredientExplorer";
 import InstagramGrid from "@/components/InstagramGrid";
 import Footer from "@/components/Footer";
 
@@ -14,8 +14,8 @@ export default function Home() {
       <DeliciousWaterHero />
       <FindMyTeaQuiz />
       <HydrationTracker />
-      <DailyRitual />
-      <IngredientExplorer />
+      {/* <DailyRitual /> */}
+      {/* <IngredientExplorer /> */}
       <InstagramGrid />
       <Footer />
     </main>
