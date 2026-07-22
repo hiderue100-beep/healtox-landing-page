@@ -3,7 +3,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://healtox-landing-page-vq2l.vercel.app"),
+  metadataBase: new URL("https://healtox.com"),
   title: "HEALTOX 힐톡스 | 물이 맛있다! 힐톡스",
   description: "대한민국 청정 농가의 식물 원료를 현대적 수분 리추얼로 재해석하는 보타니컬 웰니스 브랜드. 0-카페인 0-칼로리 물이 맛있는 수분 리추얼.",
   icons: {
