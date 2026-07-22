@@ -24,7 +24,7 @@ const QUESTIONS = [
     options: [
       { id: "Morning", label: "Morning Ritual (07:00 - 10:00)", desc: "하루를 개운하게 여는 첫 수분", icon: "🌅" },
       { id: "Afternoon", label: "Afternoon Reset (13:00 - 16:00)", desc: "오후 피로를 깨우는 리프레시", icon: "☀️" },
-      { id: "Evening", label: "Evening Wind Down (19:00 - 21:00)", desc: "하루 긴장을 푸는 미니멀 타임", icon: "<ctrl42>" },
+      { id: "Evening", label: "Evening Wind Down (19:00 - 21:00)", desc: "하루 긴장을 푸는 미니멀 타임", icon: "🌙" },
       { id: "Night", label: "Night Sleep (22:00 - 24:00)", desc: "카페인 없는 편안한 나이트", icon: "🌌" },
     ],
   },
